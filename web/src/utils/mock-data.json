@@ -1,8 +1,18 @@
 [
 	{
 		"title":"Note",
-		"note": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis cum repellat quas quia perferendis molestiae? Lorem ipsum dolor sit ame consectetur adipisicing elit. Blanditiis cum repellat quas quia",
+		"note": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis cum repellat quas quia perferendis sit ame consectetur adipisicing elit. Blanditiis cum repellat quas quia",
 		"bgColor": "#eaf6f6",
+		"isPinned":false,
+		"label": {
+			"name":"Work",
+			"color": "blue"
+		}
+	},
+	{
+		"title":"Note",
+		"note": "Blanditiis cum repellat quas quia",
+		"bgColor": "#feffdf",
 		"isPinned":false,
 		"label": {
 			"name":"Work",
@@ -21,8 +31,8 @@
 	},
 	{
 		"title":"Note",
-		"note": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis cum repellat quas quia perferendis molestiae? Lorem ipsum dolor sit ame consectetur adipisicing elit. Blanditiis cum repellat quas quia",
-		"bgColor": "#eaf6f6",
+		"note": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis cum repellat quas quia",
+		"bgColor": "#e0ffcd",
 		"isPinned":false,
 		"label": {
 			"name":"Work",
@@ -32,17 +42,7 @@
 	{
 		"title":"Note",
 		"note": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis cum repellat quas quia perferendis molestiae? Lorem ipsum dolor sit ame consectetur adipisicing elit. Blanditiis cum repellat quas quia",
-		"bgColor": "#eaf6f6",
-		"isPinned":false,
-		"label": {
-			"name":"Work",
-			"color": "blue"
-		}
-	},
-	{
-		"title":"Note",
-		"note": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis cum repellat quas quia perferendis molestiae? Lorem ipsum dolor sit ame consectetur adipisicing elit. Blanditiis cum repellat quas quia",
-		"bgColor": "#eaf6f6",
+		"bgColor": "#ffd8da",
 		"isPinned":false,
 		"label": {
 			"name":"Work",
