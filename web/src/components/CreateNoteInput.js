@@ -1,13 +1,18 @@
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { BsPen } from "react-icons/bs";
+import EditNote from "./EditNote";
 
 const CreateNoteInput = () => {
   const [expandContainer, setExpandContainer] = useState(false);
 
+  if (expandContainer) {
+    return <EditNote />;
+  }
+
   return (
     <InputGroup
-      width="50rem"
+      width="40rem"
       m="auto"
       my="3rem"
       boxShadow="4px 2px 5px 0px rgba(0, 0, 0, 0.08)"
