@@ -1,29 +1,31 @@
 import mongoose from "mongoose";
-import { DEFAULT_LABELS } from "../utils/constants";
+import { DEFAULT_LABELS } from "../utils/constants.js";
 const { Schema } = mongoose;
 
 const labelSchema = new Schema({
   name: {
-    type: string,
+    type: String,
     trim: true,
   },
   background: {
-    type: string,
+    type: String,
     trim: true,
   },
 });
 
 const userSchema = new Schema({
   notes: {
-    type: string,
+    type: String,
   },
-  emailId: {
+  email: {
     unique: true,
-    type: string,
+    type: String,
     trim: true,
+    required: true,
   },
   password: {
-    type: string,
+    type: String,
+    required: true,
   },
   labels: {
     type: [labelSchema],
