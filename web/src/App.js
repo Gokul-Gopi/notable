@@ -19,7 +19,7 @@ import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
 
 function App() {
-  const isUserLoggedIn = false;
+  const isUserLoggedIn = true;
 
   //for login form modal
   const { isOpen, onOpen, onClose } = useDisclosure();
