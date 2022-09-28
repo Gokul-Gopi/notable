@@ -24,6 +24,7 @@ const CreateNoteInput = () => {
         color="#979797"
         mr="0.5rem"
         mt="0.1rem"
+        zIndex="1"
       />
     </InputGroup>
   );

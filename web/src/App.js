@@ -15,11 +15,12 @@ import mockData from "./utils/mock-data.json";
 import loginScreen from "./assets/login-screen.svg";
 import { AiOutlineLogin } from "react-icons/ai";
 import CustomModal from "./components/CustomModal";
-import LoginForm from "./components/LoginForm";
-import SignUpForm from "./components/SignUpForm";
+import LoginForm from "./components/Forms/LoginForm";
+import SignUpForm from "./components/Forms/SignUpForm";
+import { useAuth } from "./context/AuthContext";
 
 function App() {
-  const isUserLoggedIn = true;
+  const { isUserLoggedIn } = useAuth();
 
   //for login form modal
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -51,7 +52,7 @@ function App() {
             })}
           </Grid>
 
-          <CreateNoteFloatingButton />
+          {/* <CreateNoteFloatingButton /> */}
         </>
       ) : (
         <Flex
