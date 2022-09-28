@@ -14,9 +14,6 @@ const labelSchema = new Schema({
 });
 
 const userSchema = new Schema({
-  notes: {
-    type: String,
-  },
   email: {
     unique: true,
     type: String,
