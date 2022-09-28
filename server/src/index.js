@@ -2,12 +2,13 @@ import express from "express";
 import dotenv from "dotenv";
 import { connectToMongoDB } from "./utils/connectToDB.js";
 import authRoutes from "./routes/auth.js";
-
+import cors from "cors";
 const app = express();
 dotenv.config();
 connectToMongoDB();
 
 app.use(express.json());
+app.use(cors());
 
 app.use("/auth", authRoutes);
 
