@@ -64,11 +64,6 @@ const LoginForm = ({ openSignupForm, onClose }) => {
             value: true,
             message: "New password requried",
           },
-          pattern: {
-            value: passwordRegex,
-            message:
-              "Min. 8 characters long, must include a number a special character",
-          },
         }}
       />
       <Button
