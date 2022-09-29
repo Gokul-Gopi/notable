@@ -1,3 +1,4 @@
+import { Feedback } from "../models/feedback.model.js";
 import { User } from "../models/user.model.js";
 import { getErrorCodeAndMessage, validateBody } from "../utils/helpers.js";
 import { createlabelSchema } from "../validations/label.valiadtion.js";
@@ -37,6 +38,21 @@ export const deleteLabel = async (req, res) => {
       { $pull: { labels: { _id: labelId } } }
     );
     res.status(200).json({ status: true, data: "Label deleted" });
+  } catch (error) {
+    const { status, message } = getErrorCodeAndMessage(error);
+    return res.status(status).json({ status: false, message });
+  }
+};
+
+export const feedback = async (req, res) => {
+  const user = req.user;
+  try {
+    const feedbackByUser = new Feedback({
+      userId: user?._id,
+      feedback: req.body?.feedback,
+    });
+    await feedbackByUser.save();
+    res.status(200).json({ status: 200, message: "Feedback submitted" });
   } catch (error) {
     const { status, message } = getErrorCodeAndMessage(error);
     return res.status(status).json({ status: false, message });

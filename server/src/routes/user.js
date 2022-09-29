@@ -6,6 +6,7 @@ import {
 import {
   createLabel,
   deleteLabel,
+  feedback,
   getAllLabels,
 } from "../controllers/user.controllers.js";
 
@@ -19,5 +20,7 @@ router
 router
   .route("/label/:labelId")
   .delete(checkApiKey, isAuthenticatedUser, deleteLabel);
+
+router.route("/feedback").post(checkApiKey, isAuthenticatedUser, feedback);
 
 export default router;
