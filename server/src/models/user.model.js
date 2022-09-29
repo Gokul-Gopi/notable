@@ -5,7 +5,6 @@ const { Schema } = mongoose;
 export const labelSchema = new Schema({
   name: {
     type: String,
-    unique: true,
     required: true,
     trim: true,
   },

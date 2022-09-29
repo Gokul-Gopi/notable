@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { connectToMongoDB } from "./utils/connectToDB.js";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/user.js";
+import notesRoutes from "./routes/note.js";
 import cors from "cors";
 const app = express();
 dotenv.config();
@@ -13,6 +14,7 @@ app.use(cors());
 
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
+app.use("/note", notesRoutes);
 
 app.get("/", (req, res) => {
   return res.send("Server is running..");

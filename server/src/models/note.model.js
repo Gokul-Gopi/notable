@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { labelSchema } from "./user.model";
+import { labelSchema } from "./user.model.js";
 const { Schema } = mongoose;
 
 const noteSchema = new Schema(
@@ -10,12 +10,12 @@ const noteSchema = new Schema(
       required: true,
     },
     title: {
-      type: string,
+      type: String,
       trim: true,
       required: true,
     },
     note: {
-      type: string,
+      type: String,
       trim: true,
       required: true,
     },
@@ -23,7 +23,7 @@ const noteSchema = new Schema(
       type: labelSchema,
     },
     background: {
-      type: string,
+      type: String,
       required: true,
     },
   },
