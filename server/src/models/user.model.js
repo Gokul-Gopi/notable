@@ -2,13 +2,16 @@ import mongoose from "mongoose";
 import { DEFAULT_LABELS } from "../utils/constants.js";
 const { Schema } = mongoose;
 
-const labelSchema = new Schema({
+export const labelSchema = new Schema({
   name: {
     type: String,
+    unique: true,
+    required: true,
     trim: true,
   },
   background: {
     type: String,
+    required: true,
     trim: true,
   },
 });

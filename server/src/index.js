@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import { connectToMongoDB } from "./utils/connectToDB.js";
 import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/user.js";
 import cors from "cors";
 const app = express();
 dotenv.config();
@@ -11,6 +12,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/auth", authRoutes);
+app.use("/user", userRoutes);
 
 app.get("/", (req, res) => {
   return res.send("Server is running..");
