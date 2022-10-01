@@ -18,7 +18,7 @@ const SignUpForm = ({ openLoginForm, onClose }) => {
     watch,
     formState: { errors },
   } = useForm();
-  console.log(errors);
+
   const { mutate, isLoading } = useMutation(signupApi);
 
   const signupHandler = (data) => {

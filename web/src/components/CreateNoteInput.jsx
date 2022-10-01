@@ -7,7 +7,7 @@ const CreateNoteInput = () => {
   const [expandContainer, setExpandContainer] = useState(false);
 
   if (expandContainer) {
-    return <EditNote />;
+    return <EditNote setExpandContainer={setExpandContainer} />;
   }
 
   return (

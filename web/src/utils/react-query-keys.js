@@ -1,3 +1,2 @@
-export const USER_SIGNUP = "usersignup";
-export const USER_LOGIN = "userLogin";
-export const USER_CHANGE_PASSWORD = "userChangePassowrd";
+export const GET_USER_LABELS = "getUserlabels";
+export const GET_USER_NOTES = "getUserNotes";

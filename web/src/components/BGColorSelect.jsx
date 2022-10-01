@@ -6,13 +6,12 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import { BsCircleFill } from "react-icons/bs";
 import { IoColorPaletteOutline } from "react-icons/io5";
 
-const BGColorSelect = () => {
+const BGColorSelect = ({ noteDetails, setNoteDetails }) => {
   const availableColorOptions = ["#eaf6f6", "#feffdf", "#e0ffcd", "#ffd8da"];
-  const [selectedColor, setSelectedColor] = useState("#feffdf");
 
   return (
     <Menu closeOnSelect={false}>
@@ -30,7 +29,12 @@ const BGColorSelect = () => {
         {availableColorOptions.map((color, i) => {
           return (
             <MenuItem
-              onClick={() => setSelectedColor(color)}
+              onClick={() =>
+                setNoteDetails((preState) => ({
+                  ...preState,
+                  background: color,
+                }))
+              }
               key={`color${i}`}
               value={color}
               width="auto"
@@ -46,7 +50,7 @@ const BGColorSelect = () => {
                 borderRadius="50%"
                 p="0.2rem"
                 borderColor={
-                  selectedColor === color ? "brand.primary" : "white"
+                  noteDetails?.background === color ? "brand.primary" : "white"
                 }
               >
                 <BsCircleFill color={color} fontSize="1.9rem" />
