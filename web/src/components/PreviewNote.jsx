@@ -80,6 +80,7 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
         </Text>
         <Menu placement="left-start">
           <MenuButton
+            onClick={(e) => e.stopPropagation()}
             as={IconButton}
             aria-label="Options"
             icon={<BsThreeDots fontSize="1rem" color="#979797" />}

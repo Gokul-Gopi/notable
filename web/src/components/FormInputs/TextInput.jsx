@@ -8,33 +8,29 @@ import {
   InputLeftElement,
 } from "@chakra-ui/react";
 import { AiOutlineMail } from "react-icons/ai";
-import { emailRegex } from "../../utils/helpers";
 
-const EmailInput = ({ label, name, placeholder, register, errors }) => {
+export const TextInput = ({
+  label,
+  name,
+  type,
+  placeholder,
+  register,
+  errors,
+  rules,
+}) => {
   return (
     <FormControl isInvalid={errors[name] ? true : false} mb="1rem">
       <FormLabel>{label}</FormLabel>
       <InputGroup>
         <InputLeftElement pointerEvents="none" children={<AiOutlineMail />} />
         <Input
-          type="email"
+          type={type || "text"}
           name={name}
           placeholder={placeholder}
-          {...register(name, {
-            required: {
-              value: true,
-              message: "Email is required",
-            },
-            pattern: {
-              value: emailRegex,
-              message: "Invalid email",
-            },
-          })}
+          {...register(name, rules)}
         />
       </InputGroup>
       <FormErrorMessage>{errors[name]?.message}</FormErrorMessage>
     </FormControl>
   );
 };
-
-export default EmailInput;

@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Input,
-  Text,
-  Textarea,
-  useToast,
-} from "@chakra-ui/react";
+import { Button, Flex, Input, Textarea, useToast } from "@chakra-ui/react";
 import React from "react";
 import BGColorSelect from "./BGColorSelect";
 import LabelSelect from "./LabelSelect";

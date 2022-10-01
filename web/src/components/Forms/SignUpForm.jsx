@@ -1,12 +1,12 @@
 import React from "react";
 import { Button, Text, useToast } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import EmailInput from "../FormInputs/EmailInput";
 import { PasswordInput } from "../FormInputs/PasswordInput";
 import { useMutation } from "react-query";
 import { signupApi } from "../../services/user";
-import { errorMessage, passwordRegex } from "../../utils/helpers";
+import { emailRegex, errorMessage, passwordRegex } from "../../utils/helpers";
 import { useAuth } from "../../context/AuthContext";
+import { TextInput } from "../FormInputs/TextInput";
 
 const SignUpForm = ({ openLoginForm, onClose }) => {
   const toast = useToast();
@@ -48,12 +48,23 @@ const SignUpForm = ({ openLoginForm, onClose }) => {
 
   return (
     <form onSubmit={handleSubmit(signupHandler)} style={{ width: "100%" }}>
-      <EmailInput
+      <TextInput
         label="Email"
         name="email"
+        type="email"
         placeholder="Enter email"
         register={register}
         errors={errors}
+        rules={{
+          required: {
+            value: true,
+            message: "Email is required",
+          },
+          pattern: {
+            value: emailRegex,
+            message: "Invalid email",
+          },
+        }}
       />
       <PasswordInput
         label="Password"
