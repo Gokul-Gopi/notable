@@ -4,9 +4,10 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { useAuth } from "../../context/AuthContext";
 import { loginApi } from "../../services/user";
-import { errorMessage, passwordRegex } from "../../utils/helpers";
-import EmailInput from "../FormInputs/EmailInput";
+import { emailRegex, errorMessage } from "../../utils/helpers";
 import { PasswordInput } from "../FormInputs/PasswordInput";
+import { TextInput } from "../FormInputs/TextInput";
+import { AiOutlineMail } from "react-icons/ai";
 
 const LoginForm = ({ openSignupForm, onClose }) => {
   const toast = useToast();
@@ -46,12 +47,24 @@ const LoginForm = ({ openSignupForm, onClose }) => {
 
   return (
     <form onSubmit={handleSubmit(loginHandler)} style={{ width: "100%" }}>
-      <EmailInput
+      <TextInput
         label="Email"
         name="email"
+        type="email"
         placeholder="Enter email"
         register={register}
         errors={errors}
+        icon={AiOutlineMail}
+        rules={{
+          required: {
+            value: true,
+            message: "Email is required",
+          },
+          pattern: {
+            value: emailRegex,
+            message: "Invalid email",
+          },
+        }}
       />
       <PasswordInput
         label="Password"

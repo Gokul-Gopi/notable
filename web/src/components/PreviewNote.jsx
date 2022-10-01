@@ -6,17 +6,52 @@ import {
   MenuItem,
   MenuList,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { AiOutlinePushpin, AiOutlineDelete } from "react-icons/ai";
 import { BiExpandAlt } from "react-icons/bi";
 import { BsThreeDots } from "react-icons/bs";
+import { useMutation } from "react-query";
+import { delteNote } from "../services/note";
+import { errorMessage } from "../utils/helpers";
+import { queryClient } from "../utils/queryClient";
+import { GET_USER_NOTES } from "../utils/react-query-keys";
 
-const PreviewNote = ({ noteDetails }) => {
+const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
+  const toast = useToast();
+
+  const { mutate } = useMutation(delteNote);
+  const deleteNoteHandler = () => {
+    mutate(noteDetails?._id, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(GET_USER_NOTES);
+        toast({
+          description: "Noted deleted",
+          status: "success",
+          isClosable: true,
+          duration: 3000,
+        });
+      },
+      onError: (error) => {
+        toast({
+          description: errorMessage(error),
+          status: "error",
+          isClosable: true,
+          duration: 5000,
+        });
+      },
+    });
+  };
+
   return (
     <Flex
+      onClick={() => {
+        openNote();
+        setIdOfNoteOnView(noteDetails?._id);
+      }}
       boxShadow="8px 6px 15px 2px rgba(0, 0, 0, 0.08)"
       direction="column"
-      bg={noteDetails?.bgColor}
+      bg={noteDetails?.background}
       borderRadius="10"
       height="15rem"
       cursor="pointer"
@@ -41,10 +76,11 @@ const PreviewNote = ({ noteDetails }) => {
           overflow="hidden"
           whiteSpace="nowrap"
         >
-          {noteDetails?.title}ssssssssssss
+          {noteDetails?.title}
         </Text>
         <Menu placement="left-start">
           <MenuButton
+            onClick={(e) => e.stopPropagation()}
             as={IconButton}
             aria-label="Options"
             icon={<BsThreeDots fontSize="1rem" color="#979797" />}
@@ -78,6 +114,7 @@ const PreviewNote = ({ noteDetails }) => {
               Pin
             </MenuItem>
             <MenuItem
+              onClick={deleteNoteHandler}
               icon={<AiOutlineDelete color="#f95959" fontSize="1rem" />}
               transition="0.2s"
               _hover={{

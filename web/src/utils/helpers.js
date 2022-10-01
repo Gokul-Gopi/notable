@@ -5,6 +5,12 @@ export const emailRegex =
 export const passwordRegex =
   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
+export const labelBackgroundOptions = [
+  { color: "red", value: "red" },
+  { color: "blue", value: "blue" },
+  { color: "green", value: "green" },
+];
+
 export const errorMessage = (error) => {
   let message =
     error?.response?.data?.message ||

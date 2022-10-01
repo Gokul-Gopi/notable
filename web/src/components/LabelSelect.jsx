@@ -6,21 +6,15 @@ import {
   MenuList,
   MenuOptionGroup,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
 import { BiLabel } from "react-icons/bi";
+import CustomModal from "./CustomModal";
+import { CreateLabel } from "./Forms/CreateLabel";
 
-const LabelSelect = () => {
-  const labels = [
-    {
-      name: "WORK",
-      bg: "red",
-    },
-    {
-      name: "STUDY",
-      bg: "blue",
-    },
-  ];
+const LabelSelect = ({ labels, setNoteDetails }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <Menu closeOnSelect={false}>
@@ -33,19 +27,24 @@ const LabelSelect = () => {
         _active={{ color: "brand.primary" }}
       />
       <MenuList>
-        <MenuOptionGroup defaultValue="STUDY" type="radio">
-          {labels.map((label, i) => {
+        <MenuOptionGroup
+          type="radio"
+          onChange={(e) =>
+            setNoteDetails((preState) => ({ ...preState, labelId: e }))
+          }
+        >
+          {labels?.map((label, i) => {
             return (
               <MenuItemOption
                 key={`label${i}`}
                 py="0.2rem"
                 px="0.8rem"
-                value={label.name}
+                value={label?._id}
               >
                 <Text
                   fontSize="0.6rem"
                   fontWeight="bold"
-                  bg={label.bg}
+                  bg={label?.background}
                   color="white"
                   px="0.3rem"
                   py="0.2rem"
@@ -53,13 +52,30 @@ const LabelSelect = () => {
                   letterSpacing="0.8px"
                   width="max-content"
                 >
-                  {label.name}
+                  {label?.name}
                 </Text>
               </MenuItemOption>
             );
           })}
         </MenuOptionGroup>
+        <Text
+          onClick={onOpen}
+          cursor="pointer"
+          mt="0.3rem"
+          color="#979797"
+          fontSize="0.9rem"
+          pl="2rem"
+        >
+          + Create a label
+        </Text>
       </MenuList>
+      <CustomModal
+        title="Create custom label"
+        isOpen={isOpen}
+        onClose={onClose}
+      >
+        <CreateLabel onClose={onClose} />
+      </CustomModal>
     </Menu>
   );
 };

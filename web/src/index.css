@@ -7,6 +7,23 @@
   font-family: "Roboto", sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .App {
   min-height: 100vh;
+}
+
+.text-area::-webkit-scrollbar {
+  width: 7px;
+}
+
+.text-area::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.text-area::-webkit-scrollbar-thumb {
+  background: rgb(172, 172, 172);
+  border-radius: 5px;
 }

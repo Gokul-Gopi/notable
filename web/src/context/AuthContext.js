@@ -13,7 +13,9 @@ const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("userToken");
     if (token) {
       setUserLogggedIn(true);
-      axiosInstance.defaults.headers.common["authorization"] = token;
+      axiosInstance.defaults.headers.common[
+        "authorization"
+      ] = `Bearer ${token}`;
     }
   }, [isUserLoggedIn]);
 
