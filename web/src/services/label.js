@@ -8,3 +8,12 @@ export const getLabels = async () => {
     throw error;
   }
 };
+
+export const createlabel = async (data) => {
+  try {
+    const response = await invokeAxios("/user/label", data, "POST");
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

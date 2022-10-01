@@ -7,6 +7,7 @@ import { signupApi } from "../../services/user";
 import { emailRegex, errorMessage, passwordRegex } from "../../utils/helpers";
 import { useAuth } from "../../context/AuthContext";
 import { TextInput } from "../FormInputs/TextInput";
+import { AiOutlineMail } from "react-icons/ai";
 
 const SignUpForm = ({ openLoginForm, onClose }) => {
   const toast = useToast();
@@ -55,6 +56,7 @@ const SignUpForm = ({ openLoginForm, onClose }) => {
         placeholder="Enter email"
         register={register}
         errors={errors}
+        icon={AiOutlineMail}
         rules={{
           required: {
             value: true,

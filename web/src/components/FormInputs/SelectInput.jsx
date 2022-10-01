@@ -3,35 +3,32 @@ import {
   FormControl,
   FormLabel,
   FormErrorMessage,
-  Input,
   InputGroup,
-  InputLeftElement,
-  Icon,
+  Select,
 } from "@chakra-ui/react";
 
-export const TextInput = ({
+export const SelectInput = ({
   label,
   name,
-  type,
   placeholder,
   register,
   errors,
   rules,
-  icon,
+  options,
 }) => {
   return (
     <FormControl isInvalid={errors[name] ? true : false} mb="1rem">
       <FormLabel>{label}</FormLabel>
       <InputGroup>
-        <InputLeftElement pointerEvents="none">
-          <Icon as={icon} />
-        </InputLeftElement>
-        <Input
-          type={type || "text"}
-          name={name}
-          placeholder={placeholder}
-          {...register(name, rules)}
-        />
+        <Select placeholder={placeholder} {...register(name, rules)}>
+          {options.map((e, i) => {
+            return (
+              <option key={`option${i}`} value={e.value}>
+                {e.color}
+              </option>
+            );
+          })}
+        </Select>
       </InputGroup>
       <FormErrorMessage>{errors[name]?.message}</FormErrorMessage>
     </FormControl>

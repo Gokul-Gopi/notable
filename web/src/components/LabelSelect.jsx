@@ -6,11 +6,16 @@ import {
   MenuList,
   MenuOptionGroup,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
 import { BiLabel } from "react-icons/bi";
+import CustomModal from "./CustomModal";
+import { CreateLabel } from "./Forms/CreateLabel";
 
 const LabelSelect = ({ labels, setNoteDetails }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <Menu closeOnSelect={false}>
       <MenuButton
@@ -53,7 +58,24 @@ const LabelSelect = ({ labels, setNoteDetails }) => {
             );
           })}
         </MenuOptionGroup>
+        <Text
+          onClick={onOpen}
+          cursor="pointer"
+          mt="0.3rem"
+          color="#979797"
+          fontSize="0.9rem"
+          pl="2rem"
+        >
+          + Create a label
+        </Text>
       </MenuList>
+      <CustomModal
+        title="Create custom label"
+        isOpen={isOpen}
+        onClose={onClose}
+      >
+        <CreateLabel onClose={onClose} />
+      </CustomModal>
     </Menu>
   );
 };
