@@ -58,6 +58,7 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
       transition="all 0.2s"
       _hover={{ boxShadow: "8px 6px 15px 2px rgba(0, 0, 0, 0.15)" }}
       width="100%"
+      maxW="20.7rem"
     >
       <Flex
         justify="space-between"
@@ -102,6 +103,7 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
               View
             </MenuItem>
             <MenuItem
+              onClick={(e) => e.stopPropagation()}
               icon={<AiOutlinePushpin color="#38598b" fontSize="1rem" />}
               borderBottom="1px"
               borderColor="#dbdbdb"
@@ -114,7 +116,10 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
               Pin
             </MenuItem>
             <MenuItem
-              onClick={deleteNoteHandler}
+              onClick={(e) => {
+                e.stopPropagation();
+                deleteNoteHandler();
+              }}
               icon={<AiOutlineDelete color="#f95959" fontSize="1rem" />}
               transition="0.2s"
               _hover={{

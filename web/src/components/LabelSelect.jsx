@@ -66,7 +66,7 @@ const LabelSelect = ({ labels, setNoteDetails }) => {
           fontSize="0.9rem"
           pl="2rem"
         >
-          + Create a label
+          + Create custom
         </Text>
       </MenuList>
       <CustomModal

@@ -9,7 +9,7 @@ import { getLabels } from "../services/label";
 import SelectedLabel from "./SelectedLabel";
 import { createNote } from "../services/note";
 import { queryClient } from "../utils/queryClient";
-import { errorMessage } from "../utils/helpers";
+import { errorMessage, randomBGColorSelect } from "../utils/helpers";
 
 const EditNote = ({ setExpandContainer }) => {
   const toast = useToast();
@@ -18,7 +18,7 @@ const EditNote = ({ setExpandContainer }) => {
     title: undefined,
     note: "",
     labelId: undefined,
-    background: "#feffdf",
+    background: randomBGColorSelect(),
   };
   const [noteDetails, setNoteDetails] = useState(defaultFieldValues);
 
