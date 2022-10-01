@@ -8,7 +8,9 @@ import { Note } from "../models/note.model.js";
 export const getUserNotes = async (req, res) => {
   const user = req.user;
   try {
-    const userNotes = await Note.find({ userId: user?._id });
+    const userNotes = await Note.find({ userId: user?._id }).sort({
+      createdAt: "desc",
+    });
 
     res.status(200).json({ status: 200, data: userNotes });
   } catch (error) {
@@ -22,13 +24,14 @@ export const createNote = async (req, res) => {
   try {
     await validateBody(createNoteSchema, req.body);
     const { labelId, ...rest } = req.body;
-    const label = user?.labels.find((e) => e._id.toString() === labelId);
 
-    const newNote = new Note({
-      userId: user?._id,
-      label,
-      ...rest,
-    });
+    let noteDetails = { userId: user?._id, ...rest };
+    if (labelId) {
+      const label = user?.labels.find((e) => e._id.toString() === labelId);
+      noteDetails = { label, ...noteDetails };
+    }
+
+    const newNote = new Note(noteDetails);
     await newNote.save();
 
     res.status(201).json({ status: 200, data: newNote });

@@ -85,6 +85,7 @@ export const isAuthenticatedUser = async (req, res, next) => {
     req.user = user;
     return next();
   } catch (error) {
+    // console.log(error);
     const { status, message } = getErrorCodeAndMessage(error);
     return res.status(status).json({ status: false, message });
   }

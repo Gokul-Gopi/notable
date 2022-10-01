@@ -1,7 +1,7 @@
 import Joi from "joi";
 
 export const createNoteSchema = Joi.object({
-  title: Joi.string().required(),
+  title: Joi.string(),
   note: Joi.string().required(),
   labelId: Joi.string(),
   background: Joi.string().required(),
