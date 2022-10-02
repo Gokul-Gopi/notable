@@ -21,6 +21,7 @@ import { getUsetNotes } from "./services/note";
 import { GET_USER_NOTES } from "./utils/react-query-keys";
 import { ViewNote } from "./components/ViewNote";
 import { useState } from "react";
+import CreateNoteFloatingButton from "./components/CreateNoteFloatingButton";
 
 function App() {
   const { isUserLoggedIn } = useAuth();
@@ -56,12 +57,12 @@ function App() {
         <>
           <CreateNoteInput />
           <Grid
-            templateColumns="repeat(3, 1fr)"
-            gap="4rem"
+            templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(3, 1fr)" }}
+            gap={{ base: "0.6rem", md: "1.8rem", lg: "3rem" }}
             justifyItems="center"
-            width={{ base: "90%", lg: "70rem" }}
+            maxWidth={{ base: "95%", lg: "70rem" }}
             m="auto"
-            py={{ base: "2rem", lg: "3rem" }}
+            py={{ base: "3rem", md: "1rem", lg: "3rem" }}
           >
             {notes?.map((e, i) => {
               return (
@@ -77,7 +78,7 @@ function App() {
 
           <ViewNote noteId={idOfNoteOnView} onClose={onClose} isOpen={isOpen} />
 
-          {/* <CreateNoteFloatingButton /> */}
+          <CreateNoteFloatingButton />
         </>
       ) : (
         <Flex

@@ -27,7 +27,7 @@ const Navbar = () => {
   return (
     <Flex
       py="1rem"
-      px="2rem"
+      px={{ base: "1.2rem", md: "2rem" }}
       bg="brand.primary"
       pos="relative"
       justify="space-between"
@@ -35,14 +35,23 @@ const Navbar = () => {
       zIndex="2"
       boxShadow="lg"
     >
-      <Flex fontSize="2rem" align="center" color="white" flex="1">
+      <Flex
+        fontSize={{ base: "1.5rem", md: "2rem" }}
+        align="center"
+        color="white"
+        flex="1"
+      >
         <Icon as={BsPen} mr="0.5rem" />
         <Text fontWeight="500">Notable</Text>
       </Flex>
 
       {isUserLoggedIn && (
         <>
-          <Flex mr="1rem" width="25rem">
+          <Flex
+            mr="1rem"
+            width="25rem"
+            display={{ base: "none", md: "inline-block" }}
+          >
             <InputGroup>
               <Input
                 placeholder="Search by title.."

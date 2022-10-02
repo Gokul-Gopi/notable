@@ -73,15 +73,24 @@ export const ViewNote = ({ noteId, isOpen, onClose }) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered size="2xl">
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      isCentered
+      size={{ base: "xl", md: "2xl" }}
+    >
       <ModalOverlay onClick={() => setNoteDetails({})} />
-      <ModalContent p="0" bg={noteDetails?.background} height="40vh">
+      <ModalContent
+        p="0"
+        bg={noteDetails?.background}
+        height="40vh"
+        width={{ base: "90%", md: "100%" }}
+      >
         <ModalBody
           display="flex"
           flexDir="column"
-          px="1rem"
+          px={{ base: "0.6rem", md: "1rem" }}
           m="0"
-          width="100%"
           borderRadius="10"
         >
           <Input
@@ -125,6 +134,7 @@ export const ViewNote = ({ noteId, isOpen, onClose }) => {
           display="flex"
           alignItems="center"
           justifyContent="space-between"
+          px="1rem"
         >
           <Flex align="center">
             <BGColorSelect

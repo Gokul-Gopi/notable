@@ -49,11 +49,11 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
         openNote();
         setIdOfNoteOnView(noteDetails?._id);
       }}
-      boxShadow="8px 6px 15px 2px rgba(0, 0, 0, 0.08)"
+      boxShadow={{ base: "none", md: "8px 6px 15px 2px rgba(0, 0, 0, 0.08)" }}
       direction="column"
       bg={noteDetails?.background}
       borderRadius="10"
-      height="15rem"
+      height={{ base: "12rem", md: "15rem" }}
       cursor="pointer"
       transition="all 0.2s"
       _hover={{ boxShadow: "8px 6px 15px 2px rgba(0, 0, 0, 0.15)" }}
@@ -68,14 +68,15 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
         pr="0.3rem"
       >
         <Text
-          fontSize="1.4rem"
+          fontSize={{ base: "1.1rem", md: "1.4rem" }}
           fontWeight="bold"
-          px="2rem"
-          py="0.7rem"
+          px={{ base: "1.2rem", md: "2rem" }}
+          py={{ base: "0.5rem", md: "0.7rem" }}
           color="#b9b9b9"
           textOverflow="ellipsis"
           overflow="hidden"
           whiteSpace="nowrap"
+          minHeight={{ base: "2.7rem", md: "3.5rem" }}
         >
           {noteDetails?.title}
         </Text>
@@ -133,7 +134,12 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
         </Menu>
       </Flex>
 
-      <Text px="2rem" py="1rem" height="55%" overflow="hidden">
+      <Text
+        px={{ base: "1.2rem", md: "2rem" }}
+        py="1rem"
+        height="55%"
+        overflow="hidden"
+      >
         {noteDetails?.note}
       </Text>
     </Flex>

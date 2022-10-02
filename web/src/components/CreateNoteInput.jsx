@@ -12,7 +12,8 @@ const CreateNoteInput = () => {
 
   return (
     <InputGroup
-      width="40rem"
+      display={{ base: "none", md: "block" }}
+      maxWidth="40rem"
       m="auto"
       my="3rem"
       boxShadow="4px 2px 5px 0px rgba(0, 0, 0, 0.08)"
