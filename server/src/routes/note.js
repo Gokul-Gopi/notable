@@ -7,6 +7,7 @@ import {
   createNote,
   deleteNote,
   getUserNotes,
+  pinUnpinNote,
   updateNote,
 } from "../controllers/note.controllers.js";
 const router = express.Router();
@@ -20,5 +21,9 @@ router
   .route("/:noteId")
   .put(checkApiKey, isAuthenticatedUser, updateNote)
   .delete(checkApiKey, isAuthenticatedUser, deleteNote);
+
+router
+  .route("/pin/:noteId")
+  .put(checkApiKey, isAuthenticatedUser, pinUnpinNote);
 
 export default router;

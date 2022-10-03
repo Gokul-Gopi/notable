@@ -75,3 +75,16 @@ export const deleteNote = async (req, res) => {
     return res.status(status).json({ status: false, message });
   }
 };
+
+export const pinUnpinNote = async (req, res) => {
+  const noteId = req.params?.noteId;
+  try {
+    const note = await Note.findById({ _id: noteId });
+    await Note.updateOne({ _id: noteId }, { pinned: !note.pinned });
+
+    res.status(200).json({ status: true });
+  } catch (error) {
+    const { status, message } = getErrorCodeAndMessage(error);
+    return res.status(status).json({ status: false, message });
+  }
+};
