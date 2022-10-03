@@ -23,9 +23,11 @@ import { GET_USER_NOTES } from "./utils/react-query-keys";
 import { ViewNote } from "./components/ViewNote";
 import { useState } from "react";
 import CreateNoteFloatingButton from "./components/CreateNoteFloatingButton";
+import EditNote from "./components/EditNote";
 
 function App() {
   const { isUserLoggedIn } = useAuth();
+  const [createNewNote, setCreateNewNote] = useState(false); //only used for mobile
   const [idOfNoteOnView, setIdOfNoteOnView] = useState("");
 
   const { data: notes, isLoading } = useQuery(GET_USER_NOTES, getUsetNotes, {
@@ -96,7 +98,23 @@ function App() {
 
           <ViewNote noteId={idOfNoteOnView} onClose={onClose} isOpen={isOpen} />
 
-          <CreateNoteFloatingButton />
+          <CreateNoteFloatingButton setCreateNewNote={setCreateNewNote} />
+          {createNewNote && (
+            <Flex
+              onClick={() => setCreateNewNote(false)}
+              top="0"
+              right="0"
+              bottom="0"
+              left="0"
+              bg="rgba(0,0,0,0.4)"
+              pos="fixed"
+              align="center"
+              justify="center"
+              px="0.6rem"
+            >
+              <EditNote openBlankNote={setCreateNewNote} />
+            </Flex>
+          )}
         </>
       ) : (
         <Flex

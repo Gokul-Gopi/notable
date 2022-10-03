@@ -2,9 +2,10 @@ import { IconButton } from "@chakra-ui/react";
 import React from "react";
 import { IoAdd } from "react-icons/io5";
 
-const CreateNoteFloatingButton = () => {
+const CreateNoteFloatingButton = ({ setCreateNewNote }) => {
   return (
     <IconButton
+      onClick={() => setCreateNewNote(true)}
       display={{ base: "block", md: "none" }}
       as={IoAdd}
       position="fixed"

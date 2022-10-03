@@ -11,7 +11,7 @@ import { createNote } from "../services/note";
 import { queryClient } from "../utils/queryClient";
 import { errorMessage, randomBGColorSelect } from "../utils/helpers";
 
-const EditNote = ({ setExpandContainer }) => {
+const EditNote = ({ openBlankNote }) => {
   const toast = useToast();
   const textRef = useRef();
   const defaultFieldValues = {
@@ -36,7 +36,7 @@ const EditNote = ({ setExpandContainer }) => {
       onSuccess: () => {
         queryClient.invalidateQueries(GET_USER_NOTES);
         setNoteDetails(defaultFieldValues);
-        setExpandContainer(false);
+        openBlankNote(false);
       },
       onError: (error) => {
         toast({
@@ -51,16 +51,16 @@ const EditNote = ({ setExpandContainer }) => {
 
   return (
     <Box
-      width="40rem"
+      width={{ base: "100%", md: "40rem" }}
       m="auto"
       my="3rem"
-      pb="1rem"
+      pb={{ base: "0.4rem", md: "1rem" }}
       border="1px"
       borderColor="#dbdbdb"
       borderRadius="10"
       boxShadow="4px 2px 5px 0px rgba(0, 0, 0, 0.08)"
       bg={noteDetails?.background}
-      display={{ base: "none", md: "block" }}
+      onClick={(e) => e.stopPropagation()}
     >
       <Input
         onChange={(e) =>
@@ -89,14 +89,20 @@ const EditNote = ({ setExpandContainer }) => {
         }
         ref={textRef}
         contentEditable={true}
-        p="1rem"
+        p={{ base: "0.8rem", md: "1rem" }}
         _focus={{
           border: "none",
           outline: "none",
         }}
+        height={{ base: "7rem", md: "auto" }}
       ></Text>
 
-      <Flex mt="1rem" px="0.6rem" justify="space-between" align="center">
+      <Flex
+        mt={{ base: "0.5rem", md: "1rem" }}
+        px="0.6rem"
+        justify="space-between"
+        align="center"
+      >
         <Flex align="center">
           <BGColorSelect
             noteDetails={noteDetails}
@@ -111,8 +117,8 @@ const EditNote = ({ setExpandContainer }) => {
           onClick={saveNote}
           isLoading={isLoading}
           isDisabled={noteDetails?.note < 1}
-          bg="brand.primary"
-          color="white"
+          bg={{ base: "transparent", md: "brand.primary" }}
+          color={{ base: "brand.primary", md: "white" }}
           fontWeight="500"
           _hover={{ background: "brand.primary" }}
         >
