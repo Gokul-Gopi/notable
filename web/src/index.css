@@ -15,15 +15,15 @@ html {
   min-height: 100vh;
 }
 
-.text-area::-webkit-scrollbar {
+.custom-scroll-bar::-webkit-scrollbar {
   width: 7px;
 }
 
-.text-area::-webkit-scrollbar-track {
+.custom-scroll-bar::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
 
-.text-area::-webkit-scrollbar-thumb {
+.custom-scroll-bar::-webkit-scrollbar-thumb {
   background: rgb(172, 172, 172);
   border-radius: 5px;
 }

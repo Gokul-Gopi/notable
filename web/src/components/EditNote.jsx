@@ -60,6 +60,7 @@ const EditNote = ({ setExpandContainer }) => {
       borderRadius="10"
       boxShadow="4px 2px 5px 0px rgba(0, 0, 0, 0.08)"
       bg={noteDetails?.background}
+      display={{ base: "none", md: "block" }}
     >
       <Input
         onChange={(e) =>

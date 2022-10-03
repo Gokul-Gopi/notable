@@ -6,6 +6,7 @@ import {
   InputGroup,
   Select,
 } from "@chakra-ui/react";
+import "../../index.css";
 
 export const SelectInput = ({
   label,
@@ -23,8 +24,13 @@ export const SelectInput = ({
         <Select placeholder={placeholder} {...register(name, rules)}>
           {options.map((e, i) => {
             return (
-              <option key={`option${i}`} value={e.value}>
-                {e.color}
+              <option
+                key={`option${i}`}
+                className="option"
+                value={e.color}
+                style={{ backgroundColor: e.color }}
+              >
+                {e.value}
               </option>
             );
           })}

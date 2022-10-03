@@ -74,7 +74,6 @@ const Navbar = () => {
                 size="sm"
                 background="transparent"
                 color="white"
-                _hover={{ cursor: "pointer", color: "#f9a8d4" }}
                 _active={{ background: "brand.primary" }}
               />
 

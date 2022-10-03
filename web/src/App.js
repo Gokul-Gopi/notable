@@ -5,6 +5,7 @@ import {
   Button,
   Image,
   useDisclosure,
+  Skeleton,
 } from "@chakra-ui/react";
 import CreateNoteInput from "./components/CreateNoteInput";
 import Navbar from "./components/Navbar";
@@ -46,7 +47,20 @@ function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   if (isLoading) {
-    <Box>Loading...</Box>;
+    return (
+      <Flex
+        direction="column"
+        gap="2rem"
+        height="90vh"
+        border="10px"
+        align="center"
+        justify="center"
+      >
+        {[1, 2].map((e) => {
+          return <Skeleton height="6rem" maxW={{ base: "80%", md: "60rem" }} />;
+        })}
+      </Flex>
+    );
   }
 
   return (
@@ -57,11 +71,15 @@ function App() {
         <>
           <CreateNoteInput />
           <Grid
-            templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(3, 1fr)" }}
-            gap={{ base: "0.6rem", md: "1.8rem", lg: "3rem" }}
+            templateColumns={{
+              base: "repeat(2, 1fr)",
+              md: "repeat(3, 1fr)",
+            }}
+            gap={{ base: "0.6rem", md: "1.8rem", lg: "2.5rem" }}
             justifyItems="center"
-            maxWidth={{ base: "95%", lg: "70rem" }}
+            maxWidth={{ base: "95%", md: "60rem", lg: "72rem" }}
             m="auto"
+            px={{ base: "0", md: "2rem" }}
             py={{ base: "3rem", md: "1rem", lg: "3rem" }}
           >
             {notes?.map((e, i) => {
