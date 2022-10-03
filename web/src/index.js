@@ -7,7 +7,6 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "./utils/theme";
 import { QueryClientProvider } from "react-query";
 import { queryClient } from "./utils/queryClient";
-import { ReactQueryDevtools } from "react-query/devtools";
 import { AuthProvider } from "./context/AuthContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -20,7 +19,6 @@ root.render(
         </React.StrictMode>
       </AuthProvider>
     </ChakraProvider>
-    <ReactQueryDevtools initialIsOpen={true} />
   </QueryClientProvider>
 );
 

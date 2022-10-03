@@ -27,7 +27,7 @@ import EditNote from "./components/EditNote";
 
 function App() {
   const { isUserLoggedIn } = useAuth();
-  const [createNewNote, setCreateNewNote] = useState(false); //only used for mobile
+  const [createNewNote, setCreateNewNote] = useState(false);
   const [idOfNoteOnView, setIdOfNoteOnView] = useState("");
 
   const { data: notes, isLoading } = useQuery(GET_USER_NOTES, getUsetNotes, {
@@ -53,13 +53,19 @@ function App() {
       <Flex
         direction="column"
         gap="2rem"
-        height="90vh"
-        border="10px"
+        height="95vh"
         align="center"
         justify="center"
       >
         {[1, 2].map((e) => {
-          return <Skeleton height="6rem" maxW={{ base: "80%", md: "60rem" }} />;
+          return (
+            <Skeleton
+              key={e}
+              width="80%"
+              maxW="55rem"
+              height={{ base: "4rem", md: "6rem" }}
+            />
+          );
         })}
       </Flex>
     );
@@ -124,7 +130,11 @@ function App() {
           height="80vh"
         >
           <Box mb="2rem">
-            <Image boxSize="20rem" src={loginScreen} alt="login-screen" />
+            <Image
+              boxSize={{ base: "15rem", md: "20rem" }}
+              src={loginScreen}
+              alt="login-screen"
+            />
           </Box>
           <Button
             onClick={openLoginFrom}

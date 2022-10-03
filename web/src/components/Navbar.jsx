@@ -75,6 +75,7 @@ const Navbar = () => {
                 background="transparent"
                 color="white"
                 _active={{ background: "brand.primary" }}
+                _hover={{ color: "white" }}
               />
 
               <MenuList zIndex="5">
