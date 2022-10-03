@@ -1,5 +1,7 @@
 import {
+  Box,
   Flex,
+  Icon,
   IconButton,
   Menu,
   MenuButton,
@@ -8,9 +10,13 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
-import { AiOutlinePushpin, AiOutlineDelete } from "react-icons/ai";
+import {
+  AiOutlinePushpin,
+  AiOutlineDelete,
+  AiFillPushpin,
+} from "react-icons/ai";
 import { BiExpandAlt } from "react-icons/bi";
-import { BsThreeDots } from "react-icons/bs";
+import { BsThreeDotsVertical } from "react-icons/bs";
 import { useMutation } from "react-query";
 import { delteNote } from "../services/note";
 import { errorMessage } from "../utils/helpers";
@@ -49,15 +55,19 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
         openNote();
         setIdOfNoteOnView(noteDetails?._id);
       }}
-      boxShadow="8px 6px 15px 2px rgba(0, 0, 0, 0.08)"
+      pos="relative"
+      boxShadow={{ base: "none", md: "8px 6px 15px 2px rgba(0, 0, 0, 0.08)" }}
       direction="column"
       bg={noteDetails?.background}
       borderRadius="10"
-      height="15rem"
       cursor="pointer"
       transition="all 0.2s"
-      _hover={{ boxShadow: "8px 6px 15px 2px rgba(0, 0, 0, 0.15)" }}
+      _hover={{
+        boxShadow: { base: "", md: "8px 6px 15px 2px rgba(0, 0, 0, 0.15)" },
+      }}
+      height={{ base: "12rem", md: "15rem" }}
       width="100%"
+      maxW="20.5rem"
     >
       <Flex
         justify="space-between"
@@ -67,70 +77,108 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
         pr="0.3rem"
       >
         <Text
-          fontSize="1.4rem"
+          fontSize={{ base: "1rem", md: "1.4rem" }}
           fontWeight="bold"
-          px="2rem"
-          py="0.7rem"
-          color="#b9b9b9"
+          px={{ base: "1.1rem", md: "2rem" }}
+          py={{ base: "0.5rem", md: "0.7rem" }}
+          color="#8f8f8f"
           textOverflow="ellipsis"
           overflow="hidden"
           whiteSpace="nowrap"
+          minHeight={{ base: "2.7rem", md: "3.5rem" }}
         >
           {noteDetails?.title}
         </Text>
-        <Menu placement="left-start">
-          <MenuButton
-            onClick={(e) => e.stopPropagation()}
-            as={IconButton}
-            aria-label="Options"
-            icon={<BsThreeDots fontSize="1rem" color="#979797" />}
-            background="transparent"
-            _active={{ background: "transparent" }}
-            _hover={{ background: "transparent" }}
+
+        <Flex align="center">
+          <Icon
+            as={AiOutlinePushpin}
+            w={{ base: "5", md: "6" }}
+            h={{ base: "5", md: "6" }}
+            color="#979797"
           />
-          <MenuList minWidth="10rem">
-            <MenuItem
-              icon={<BiExpandAlt color="#42b883" />}
-              borderBottom="1px"
-              borderColor="#dbdbdb"
-              transition="0.2s"
-              _hover={{
-                transform: "translateX(5px)",
-                background: "transparent",
-              }}
-            >
-              View
-            </MenuItem>
-            <MenuItem
-              icon={<AiOutlinePushpin color="#38598b" fontSize="1rem" />}
-              borderBottom="1px"
-              borderColor="#dbdbdb"
-              transition="0.2s"
-              _hover={{
-                transform: "translateX(5px)",
-                background: "transparent",
-              }}
-            >
-              Pin
-            </MenuItem>
-            <MenuItem
-              onClick={deleteNoteHandler}
-              icon={<AiOutlineDelete color="#f95959" fontSize="1rem" />}
-              transition="0.2s"
-              _hover={{
-                transform: "translateX(5px)",
-                background: "transparent",
-              }}
-            >
-              Delete
-            </MenuItem>
-          </MenuList>
-        </Menu>
+          <Menu>
+            <MenuButton
+              onClick={(e) => e.stopPropagation()}
+              as={IconButton}
+              aria-label="Options"
+              icon={<BsThreeDotsVertical fontSize="1.2rem" color="#979797" />}
+              background="transparent"
+              _active={{ background: "transparent" }}
+              _hover={{ background: "transparent" }}
+              size="sm"
+              // border="1px"
+            />
+            <MenuList minWidth="10rem">
+              <MenuItem
+                icon={<BiExpandAlt color="#42b883" />}
+                borderBottom="1px"
+                borderColor="#dbdbdb"
+                transition="0.2s"
+                _hover={{
+                  transform: "translateX(5px)",
+                  background: "transparent",
+                }}
+              >
+                View
+              </MenuItem>
+              <MenuItem
+                onClick={(e) => e.stopPropagation()}
+                icon={<AiOutlinePushpin color="#38598b" fontSize="1rem" />}
+                borderBottom="1px"
+                borderColor="#dbdbdb"
+                transition="0.2s"
+                _hover={{
+                  transform: "translateX(5px)",
+                  background: "transparent",
+                }}
+              >
+                Pin
+              </MenuItem>
+              <MenuItem
+                onClick={(e) => {
+                  e.stopPropagation();
+                  deleteNoteHandler();
+                }}
+                icon={<AiOutlineDelete color="#f95959" fontSize="1rem" />}
+                transition="0.2s"
+                _hover={{
+                  transform: "translateX(5px)",
+                  background: "transparent",
+                }}
+              >
+                Delete
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </Flex>
       </Flex>
 
-      <Text px="2rem" py="1rem" height="55%" overflow="hidden">
+      <Text
+        px={{ base: "1.1rem", md: "1.85rem", lg: "2rem" }}
+        py={{ base: "0.6rem", md: "1rem" }}
+        height={{ base: "65%", md: "55%" }}
+        // border="1px"
+        overflow="hidden"
+        width="100%"
+        mx="auto"
+        textAlign={{ base: "justify", md: "left" }}
+        wordBreak="break-all"
+      >
         {noteDetails?.note}
       </Text>
+      {noteDetails?.label?.background && (
+        <Box
+          display="inline-block"
+          height={{ base: "0.4rem", md: "0.55rem" }}
+          width={{ base: "3rem", md: "5rem" }}
+          borderRadius="10"
+          bg={noteDetails?.label?.background}
+          bottom="4%"
+          right="4%"
+          pos="absolute"
+        ></Box>
+      )}
     </Flex>
   );
 };

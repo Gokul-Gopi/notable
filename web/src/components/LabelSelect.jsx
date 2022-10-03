@@ -12,6 +12,7 @@ import React from "react";
 import { BiLabel } from "react-icons/bi";
 import CustomModal from "./CustomModal";
 import { CreateLabel } from "./Forms/CreateLabel";
+import "../index.css";
 
 const LabelSelect = ({ labels, setNoteDetails }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -26,7 +27,7 @@ const LabelSelect = ({ labels, setNoteDetails }) => {
         _hover={{ color: "brand.primary" }}
         _active={{ color: "brand.primary" }}
       />
-      <MenuList>
+      <MenuList maxH="10rem" overflowY="auto" className="custom-scroll-bar">
         <MenuOptionGroup
           type="radio"
           onChange={(e) =>
@@ -42,15 +43,14 @@ const LabelSelect = ({ labels, setNoteDetails }) => {
                 value={label?._id}
               >
                 <Text
-                  fontSize="0.6rem"
-                  fontWeight="bold"
+                  fontSize="0.8rem"
+                  // fontWeight="bold"
                   bg={label?.background}
                   color="white"
-                  px="0.3rem"
+                  px="0.5rem"
                   py="0.2rem"
                   borderRadius="5"
-                  letterSpacing="0.8px"
-                  width="max-content"
+                  width="90%"
                 >
                   {label?.name}
                 </Text>
@@ -58,15 +58,17 @@ const LabelSelect = ({ labels, setNoteDetails }) => {
             );
           })}
         </MenuOptionGroup>
+
         <Text
           onClick={onOpen}
           cursor="pointer"
-          mt="0.3rem"
+          mt="0.5rem"
           color="#979797"
           fontSize="0.9rem"
           pl="2rem"
+          _hover={{ color: "brand.primary" }}
         >
-          + Create a label
+          + Create custom
         </Text>
       </MenuList>
       <CustomModal

@@ -9,10 +9,9 @@ import {
 import React from "react";
 import { BsCircleFill } from "react-icons/bs";
 import { IoColorPaletteOutline } from "react-icons/io5";
+import { availableColorOptions } from "../utils/helpers";
 
 const BGColorSelect = ({ noteDetails, setNoteDetails }) => {
-  const availableColorOptions = ["#eaf6f6", "#feffdf", "#e0ffcd", "#ffd8da"];
-
   return (
     <Menu closeOnSelect={false}>
       <MenuButton

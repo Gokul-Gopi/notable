@@ -5,6 +5,7 @@ import {
   Button,
   Image,
   useDisclosure,
+  Skeleton,
 } from "@chakra-ui/react";
 import CreateNoteInput from "./components/CreateNoteInput";
 import Navbar from "./components/Navbar";
@@ -21,9 +22,12 @@ import { getUsetNotes } from "./services/note";
 import { GET_USER_NOTES } from "./utils/react-query-keys";
 import { ViewNote } from "./components/ViewNote";
 import { useState } from "react";
+import CreateNoteFloatingButton from "./components/CreateNoteFloatingButton";
+import EditNote from "./components/EditNote";
 
 function App() {
   const { isUserLoggedIn } = useAuth();
+  const [createNewNote, setCreateNewNote] = useState(false); //only used for mobile
   const [idOfNoteOnView, setIdOfNoteOnView] = useState("");
 
   const { data: notes, isLoading } = useQuery(GET_USER_NOTES, getUsetNotes, {
@@ -45,7 +49,20 @@ function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   if (isLoading) {
-    <Box>Loading...</Box>;
+    return (
+      <Flex
+        direction="column"
+        gap="2rem"
+        height="90vh"
+        border="10px"
+        align="center"
+        justify="center"
+      >
+        {[1, 2].map((e) => {
+          return <Skeleton height="6rem" maxW={{ base: "80%", md: "60rem" }} />;
+        })}
+      </Flex>
+    );
   }
 
   return (
@@ -56,12 +73,16 @@ function App() {
         <>
           <CreateNoteInput />
           <Grid
-            templateColumns="repeat(3, 1fr)"
-            gap="4rem"
+            templateColumns={{
+              base: "repeat(2, 1fr)",
+              md: "repeat(3, 1fr)",
+            }}
+            gap={{ base: "0.6rem", md: "1.8rem", lg: "2.5rem" }}
             justifyItems="center"
-            width={{ base: "90%", lg: "70rem" }}
+            maxWidth={{ base: "95%", md: "60rem", lg: "72rem" }}
             m="auto"
-            py={{ base: "2rem", lg: "3rem" }}
+            px={{ base: "0", md: "2rem" }}
+            py={{ base: "3rem", md: "1rem", lg: "3rem" }}
           >
             {notes?.map((e, i) => {
               return (
@@ -77,7 +98,23 @@ function App() {
 
           <ViewNote noteId={idOfNoteOnView} onClose={onClose} isOpen={isOpen} />
 
-          {/* <CreateNoteFloatingButton /> */}
+          <CreateNoteFloatingButton setCreateNewNote={setCreateNewNote} />
+          {createNewNote && (
+            <Flex
+              onClick={() => setCreateNewNote(false)}
+              top="0"
+              right="0"
+              bottom="0"
+              left="0"
+              bg="rgba(0,0,0,0.4)"
+              pos="fixed"
+              align="center"
+              justify="center"
+              px="0.6rem"
+            >
+              <EditNote openBlankNote={setCreateNewNote} />
+            </Flex>
+          )}
         </>
       ) : (
         <Flex

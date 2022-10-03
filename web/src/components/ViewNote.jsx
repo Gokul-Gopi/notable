@@ -73,16 +73,25 @@ export const ViewNote = ({ noteId, isOpen, onClose }) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered size="2xl">
-      <ModalOverlay onClick={() => setNoteDetails({})} />
-      <ModalContent p="0" bg={noteDetails?.background} height="40vh">
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      isCentered
+      size={{ base: "xl", md: "2xl" }}
+    >
+      <ModalOverlay />
+      <ModalContent
+        p="0"
+        bg={noteDetails?.background}
+        height="40vh"
+        width={{ base: "90%", md: "100%" }}
+      >
         <ModalBody
           display="flex"
           flexDir="column"
-          px="1rem"
-          m="0"
-          width="100%"
+          px={{ base: "0.2rem", md: "1rem" }}
           borderRadius="10"
+          py={{ base: "0", md: "2" }}
         >
           <Input
             onChange={(e) =>
@@ -104,7 +113,7 @@ export const ViewNote = ({ noteId, isOpen, onClose }) => {
           />
 
           <Textarea
-            className="text-area"
+            className="custom-scroll-bar"
             onInput={(e) =>
               setNoteDetails((preState) => ({
                 ...preState,
@@ -125,6 +134,8 @@ export const ViewNote = ({ noteId, isOpen, onClose }) => {
           display="flex"
           alignItems="center"
           justifyContent="space-between"
+          px={{ base: "0.7rem", md: "1rem" }}
+          py={{ base: "2", md: "4" }}
         >
           <Flex align="center">
             <BGColorSelect
@@ -141,8 +152,8 @@ export const ViewNote = ({ noteId, isOpen, onClose }) => {
             onClick={updateNoteHandler}
             isLoading={isLoading}
             isDisabled={noteDetails?.note < 1}
-            bg="brand.primary"
-            color="white"
+            bg={{ base: "transparent", md: "brand.primary" }}
+            color={{ base: "brand.primary", md: "white" }}
             fontWeight="500"
             _hover={{ background: "brand.primary" }}
           >
