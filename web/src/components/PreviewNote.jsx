@@ -26,7 +26,7 @@ import { GET_USER_NOTES } from "../utils/react-query-keys";
 const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
   const toast = useToast();
 
-  const { mutate } = useMutation(delteNote);
+  const { mutate, isLoading: isDeleting } = useMutation(delteNote);
   const deleteNoteHandler = () => {
     mutate(noteDetails?._id, {
       onSuccess: () => {
@@ -35,7 +35,7 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
           description: "Noted deleted",
           status: "success",
           isClosable: true,
-          duration: 3000,
+          duration: 2000,
         });
       },
       onError: (error) => {
@@ -43,7 +43,7 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
           description: errorMessage(error),
           status: "error",
           isClosable: true,
-          duration: 5000,
+          duration: 4000,
         });
       },
     });
@@ -72,6 +72,7 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
         openNote();
         setIdOfNoteOnView(noteDetails?._id);
       }}
+      opacity={isDeleting ? 0.5 : 1}
       pos="relative"
       boxShadow={{ base: "none", md: "8px 6px 15px 2px rgba(0, 0, 0, 0.08)" }}
       direction="column"
