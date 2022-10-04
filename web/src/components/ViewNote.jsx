@@ -38,7 +38,7 @@ export const ViewNote = ({ noteId, isOpen, onClose }) => {
   });
 
   useEffect(() => {
-    if (notes?.length > 1 && noteId) {
+    if (notes?.length > 0 && noteId) {
       const note = notes.find((e) => e._id === noteId);
       const detail = {
         title: note?.title,

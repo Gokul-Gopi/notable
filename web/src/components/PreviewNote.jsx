@@ -18,7 +18,7 @@ import {
 import { BiExpandAlt } from "react-icons/bi";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useMutation } from "react-query";
-import { delteNote } from "../services/note";
+import { delteNote, pinNote } from "../services/note";
 import { errorMessage } from "../utils/helpers";
 import { queryClient } from "../utils/queryClient";
 import { GET_USER_NOTES } from "../utils/react-query-keys";
@@ -26,7 +26,7 @@ import { GET_USER_NOTES } from "../utils/react-query-keys";
 const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
   const toast = useToast();
 
-  const { mutate } = useMutation(delteNote);
+  const { mutate, isLoading: isDeleting } = useMutation(delteNote);
   const deleteNoteHandler = () => {
     mutate(noteDetails?._id, {
       onSuccess: () => {
@@ -35,8 +35,25 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
           description: "Noted deleted",
           status: "success",
           isClosable: true,
-          duration: 3000,
+          duration: 2000,
         });
+      },
+      onError: (error) => {
+        toast({
+          description: errorMessage(error),
+          status: "error",
+          isClosable: true,
+          duration: 4000,
+        });
+      },
+    });
+  };
+
+  const { mutate: pinNoteMutate } = useMutation(pinNote);
+  const pinUnpinHandler = () => {
+    pinNoteMutate(noteDetails?._id, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(GET_USER_NOTES);
       },
       onError: (error) => {
         toast({
@@ -55,6 +72,7 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
         openNote();
         setIdOfNoteOnView(noteDetails?._id);
       }}
+      opacity={isDeleting ? 0.5 : 1}
       pos="relative"
       boxShadow={{ base: "none", md: "8px 6px 15px 2px rgba(0, 0, 0, 0.08)" }}
       direction="column"
@@ -91,12 +109,30 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
         </Text>
 
         <Flex align="center">
-          <Icon
-            as={AiOutlinePushpin}
-            w={{ base: "5", md: "6" }}
-            h={{ base: "5", md: "6" }}
-            color="#979797"
-          />
+          {noteDetails?.pinned ? (
+            <Icon
+              onClick={(e) => {
+                e.stopPropagation();
+                pinUnpinHandler();
+              }}
+              as={AiFillPushpin}
+              w={{ base: "5", md: "6" }}
+              h={{ base: "5", md: "6" }}
+              color="#979797"
+            />
+          ) : (
+            <Icon
+              onClick={(e) => {
+                e.stopPropagation();
+                pinUnpinHandler();
+              }}
+              as={AiOutlinePushpin}
+              w={{ base: "5", md: "6" }}
+              h={{ base: "5", md: "6" }}
+              color="#979797"
+            />
+          )}
+
           <Menu>
             <MenuButton
               onClick={(e) => e.stopPropagation()}
@@ -107,7 +143,6 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
               _active={{ background: "transparent" }}
               _hover={{ background: "transparent" }}
               size="sm"
-              // border="1px"
             />
             <MenuList minWidth="10rem">
               <MenuItem
@@ -123,7 +158,10 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
                 View
               </MenuItem>
               <MenuItem
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  pinUnpinHandler();
+                }}
                 icon={<AiOutlinePushpin color="#38598b" fontSize="1rem" />}
                 borderBottom="1px"
                 borderColor="#dbdbdb"

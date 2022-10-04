@@ -18,6 +18,10 @@ const noteSchema = new Schema(
       trim: true,
       required: true,
     },
+    pinned: {
+      type: Boolean,
+      default: false,
+    },
     label: {
       type: labelSchema,
     },

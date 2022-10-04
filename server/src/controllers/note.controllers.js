@@ -9,6 +9,7 @@ export const getUserNotes = async (req, res) => {
   const user = req.user;
   try {
     const userNotes = await Note.find({ userId: user?._id }).sort({
+      pinned: "desc",
       createdAt: "desc",
     });
 
@@ -70,6 +71,19 @@ export const deleteNote = async (req, res) => {
   try {
     await Note.deleteOne({ _id: noteId });
     res.status(200).json({ status: 200, message: "Note deleted" });
+  } catch (error) {
+    const { status, message } = getErrorCodeAndMessage(error);
+    return res.status(status).json({ status: false, message });
+  }
+};
+
+export const pinUnpinNote = async (req, res) => {
+  const noteId = req.params?.noteId;
+  try {
+    const note = await Note.findById({ _id: noteId });
+    await Note.updateOne({ _id: noteId }, { pinned: !note.pinned });
+
+    res.status(200).json({ status: true });
   } catch (error) {
     const { status, message } = getErrorCodeAndMessage(error);
     return res.status(status).json({ status: false, message });

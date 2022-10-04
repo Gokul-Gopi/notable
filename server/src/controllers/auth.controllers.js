@@ -82,6 +82,13 @@ export const isAuthenticatedUser = async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
 
     const user = await User.findById(decoded?.id);
+
+    if (!user) {
+      throw {
+        status_code: 401,
+        message: "You are not authenticated to do this",
+      };
+    }
     req.user = user;
     return next();
   } catch (error) {

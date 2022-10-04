@@ -11,7 +11,7 @@ import CreateNoteInput from "./components/CreateNoteInput";
 import Navbar from "./components/Navbar";
 import PreviewNote from "./components/PreviewNote";
 import "./index.css";
-import loginScreen from "./assets/login-screen.svg";
+import login from "./assets/login.svg";
 import { AiOutlineLogin } from "react-icons/ai";
 import CustomModal from "./components/CustomModal";
 import LoginForm from "./components/Forms/LoginForm";
@@ -24,6 +24,7 @@ import { ViewNote } from "./components/ViewNote";
 import { useState } from "react";
 import CreateNoteFloatingButton from "./components/CreateNoteFloatingButton";
 import EditNote from "./components/EditNote";
+import noNotes from "./assets/no-notes.svg";
 
 function App() {
   const { isUserLoggedIn } = useAuth();
@@ -78,29 +79,45 @@ function App() {
       {isUserLoggedIn ? (
         <>
           <CreateNoteInput />
-          <Grid
-            templateColumns={{
-              base: "repeat(2, 1fr)",
-              md: "repeat(3, 1fr)",
-            }}
-            gap={{ base: "0.6rem", md: "1.8rem", lg: "2.5rem" }}
-            justifyItems="center"
-            maxWidth={{ base: "95%", md: "60rem", lg: "72rem" }}
-            m="auto"
-            px={{ base: "0", md: "2rem" }}
-            py={{ base: "3rem", md: "1rem", lg: "3rem" }}
-          >
-            {notes?.map((e, i) => {
-              return (
-                <PreviewNote
-                  key={i}
-                  noteDetails={e}
-                  openNote={onOpen}
-                  setIdOfNoteOnView={setIdOfNoteOnView}
-                />
-              );
-            })}
-          </Grid>
+
+          {notes.length < 1 ? (
+            <Flex
+              direction="column"
+              justify="center"
+              align="center"
+              height={{ base: "80vh", md: "auto" }}
+            >
+              <Image
+                boxSize={{ base: "14rem", md: "20rem" }}
+                src={noNotes}
+                alt="no notes"
+              />
+            </Flex>
+          ) : (
+            <Grid
+              templateColumns={{
+                base: "repeat(2, 1fr)",
+                md: "repeat(3, 1fr)",
+              }}
+              gap={{ base: "0.6rem", md: "1.8rem", lg: "2.5rem" }}
+              justifyItems="center"
+              maxWidth={{ base: "95%", md: "60rem", lg: "72rem" }}
+              m="auto"
+              px={{ base: "0", md: "2rem" }}
+              py={{ base: "3rem", md: "1rem", lg: "3rem" }}
+            >
+              {notes?.map((e, i) => {
+                return (
+                  <PreviewNote
+                    key={i}
+                    noteDetails={e}
+                    openNote={onOpen}
+                    setIdOfNoteOnView={setIdOfNoteOnView}
+                  />
+                );
+              })}
+            </Grid>
+          )}
 
           <ViewNote noteId={idOfNoteOnView} onClose={onClose} isOpen={isOpen} />
 
@@ -129,11 +146,11 @@ function App() {
           justifyContent="center"
           height="80vh"
         >
-          <Box mb="2rem">
+          <Box>
             <Image
-              boxSize={{ base: "15rem", md: "20rem" }}
-              src={loginScreen}
-              alt="login-screen"
+              boxSize={{ base: "15rem", md: "25rem" }}
+              src={login}
+              alt="login"
             />
           </Box>
           <Button
