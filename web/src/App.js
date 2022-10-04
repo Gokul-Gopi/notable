@@ -80,7 +80,7 @@ function App() {
         <>
           <CreateNoteInput />
 
-          {notes.length < 1 ? (
+          {notes?.length < 1 ? (
             <Flex
               direction="column"
               justify="center"
