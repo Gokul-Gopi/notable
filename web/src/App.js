@@ -33,6 +33,7 @@ function App() {
 
   const { data: notes, isLoading } = useQuery(GET_USER_NOTES, getUsetNotes, {
     select: (response) => response?.data?.data,
+    retry: 1,
   });
 
   const {
