@@ -18,7 +18,7 @@ import {
 import { BiExpandAlt } from "react-icons/bi";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useMutation } from "react-query";
-import { delteNote } from "../services/note";
+import { delteNote, pinNote } from "../services/note";
 import { errorMessage } from "../utils/helpers";
 import { queryClient } from "../utils/queryClient";
 import { GET_USER_NOTES } from "../utils/react-query-keys";
@@ -37,6 +37,23 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
           isClosable: true,
           duration: 3000,
         });
+      },
+      onError: (error) => {
+        toast({
+          description: errorMessage(error),
+          status: "error",
+          isClosable: true,
+          duration: 5000,
+        });
+      },
+    });
+  };
+
+  const { mutate: pinNoteMutate } = useMutation(pinNote);
+  const pinUnpinHandler = () => {
+    pinNoteMutate(noteDetails?._id, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(GET_USER_NOTES);
       },
       onError: (error) => {
         toast({
@@ -91,12 +108,30 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
         </Text>
 
         <Flex align="center">
-          <Icon
-            as={AiOutlinePushpin}
-            w={{ base: "5", md: "6" }}
-            h={{ base: "5", md: "6" }}
-            color="#979797"
-          />
+          {noteDetails?.pinned ? (
+            <Icon
+              onClick={(e) => {
+                e.stopPropagation();
+                pinUnpinHandler();
+              }}
+              as={AiFillPushpin}
+              w={{ base: "5", md: "6" }}
+              h={{ base: "5", md: "6" }}
+              color="#979797"
+            />
+          ) : (
+            <Icon
+              onClick={(e) => {
+                e.stopPropagation();
+                pinUnpinHandler();
+              }}
+              as={AiOutlinePushpin}
+              w={{ base: "5", md: "6" }}
+              h={{ base: "5", md: "6" }}
+              color="#979797"
+            />
+          )}
+
           <Menu>
             <MenuButton
               onClick={(e) => e.stopPropagation()}
@@ -107,7 +142,6 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
               _active={{ background: "transparent" }}
               _hover={{ background: "transparent" }}
               size="sm"
-              // border="1px"
             />
             <MenuList minWidth="10rem">
               <MenuItem
@@ -123,7 +157,10 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
                 View
               </MenuItem>
               <MenuItem
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  pinUnpinHandler();
+                }}
                 icon={<AiOutlinePushpin color="#38598b" fontSize="1rem" />}
                 borderBottom="1px"
                 borderColor="#dbdbdb"

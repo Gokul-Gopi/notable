@@ -36,3 +36,12 @@ export const delteNote = async (id) => {
     throw error;
   }
 };
+
+export const pinNote = async (id) => {
+  try {
+    const response = await invokeAxios(`/note/pin/${id}`, {}, "PUT");
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

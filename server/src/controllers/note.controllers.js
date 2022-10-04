@@ -9,6 +9,7 @@ export const getUserNotes = async (req, res) => {
   const user = req.user;
   try {
     const userNotes = await Note.find({ userId: user?._id }).sort({
+      pinned: "desc",
       createdAt: "desc",
     });
 

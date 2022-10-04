@@ -1,10 +1,10 @@
 export const DEFAULT_LABELS = [
   {
-    name: "Study",
-    background: "red",
+    name: "Hobby",
+    background: "#854836",
   },
   {
-    name: "Work",
-    background: "blue",
+    name: "Personal",
+    background: "#42b883",
   },
 ];
