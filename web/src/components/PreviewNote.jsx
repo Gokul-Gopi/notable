@@ -121,6 +121,7 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
           overflow="hidden"
           whiteSpace="nowrap"
           minHeight={{ base: "2.7rem", md: "3.5rem" }}
+          w={{ base: "5rem", md: "10rem" }}
         >
           {noteDetails?.title}
         </Text>
@@ -199,7 +200,6 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
         px={{ base: "1.1rem", md: "1.85rem", lg: "2rem" }}
         py={{ base: "0.6rem", md: "1rem" }}
         height={{ base: "65%", md: "55%" }}
-        // border="1px"
         overflow="hidden"
         width="100%"
         mx="auto"
