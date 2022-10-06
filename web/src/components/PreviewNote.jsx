@@ -76,7 +76,7 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
         openNote();
         setIdOfNoteOnView(noteDetails?._id);
       }}
-      opacity={isDeleting ? 0.5 : 1}
+      opacity={isDeleting ? 0.4 : 1}
       pos="relative"
       boxShadow={{
         base: "none",
