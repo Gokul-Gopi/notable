@@ -27,3 +27,12 @@ html {
   background: rgb(172, 172, 172);
   border-radius: 5px;
 }
+
+.input-placeholder::placeholder {
+  color: rgb(147, 147, 147);
+  opacity: 1;
+}
+
+.input-placeholder::-ms-input-placeholder {
+  color: rgb(147, 147, 147);
+}

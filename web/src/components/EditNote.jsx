@@ -1,4 +1,12 @@
-import { Box, Button, Flex, Input, Text, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Input,
+  Text,
+  useColorModeValue,
+  useToast,
+} from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import "../index.css";
 import BGColorSelect from "./BGColorSelect";
@@ -14,6 +22,7 @@ import { errorMessage, randomBGColorSelect } from "../utils/helpers";
 const EditNote = ({ openBlankNote }) => {
   const toast = useToast();
   const textRef = useRef();
+
   const defaultFieldValues = {
     title: undefined,
     note: "",
@@ -21,7 +30,7 @@ const EditNote = ({ openBlankNote }) => {
     background: randomBGColorSelect(),
   };
   const [noteDetails, setNoteDetails] = useState(defaultFieldValues);
-
+  const bg = useColorModeValue(noteDetails?.background, "");
   const { data } = useQuery(GET_USER_LABELS, getLabels, {
     select: (response) => response?.data?.data,
   });
@@ -51,6 +60,7 @@ const EditNote = ({ openBlankNote }) => {
 
   return (
     <Box
+      onClick={(e) => e.stopPropagation()}
       width={{ base: "100%", md: "40rem" }}
       m="auto"
       my="3rem"
@@ -59,8 +69,7 @@ const EditNote = ({ openBlankNote }) => {
       borderColor="#dbdbdb"
       borderRadius="10"
       boxShadow="4px 2px 5px 0px rgba(0, 0, 0, 0.08)"
-      bg={noteDetails?.background}
-      onClick={(e) => e.stopPropagation()}
+      bg={bg}
     >
       <Input
         onChange={(e) =>

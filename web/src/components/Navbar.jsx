@@ -10,19 +10,22 @@ import {
   MenuItem,
   MenuList,
   Text,
+  useColorMode,
   useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
-import { BsPen } from "react-icons/bs";
-import { BiExit, BiSearchAlt, BiUserCircle } from "react-icons/bi";
+import { BsPen, BsSun } from "react-icons/bs";
+import { BiExit, BiMoon, BiSearchAlt, BiUserCircle } from "react-icons/bi";
 import { MdPassword } from "react-icons/md";
 import { useAuth } from "../context/AuthContext";
 import CustomModal from "./CustomModal";
 import ChangePasswordForm from "./Forms/ChangePasswordForm";
+import "../index.css";
 
 const Navbar = () => {
   const { logoutUser, isUserLoggedIn } = useAuth();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { colorMode, toggleColorMode } = useColorMode();
 
   return (
     <Flex
@@ -54,10 +57,12 @@ const Navbar = () => {
           >
             <InputGroup>
               <Input
+                className="input-placeholder"
                 placeholder="Search by title.."
                 bg="white"
                 _focus={{ outline: "none" }}
                 fontSize="0.9rem"
+                color="black"
               />
               <InputRightElement
                 pointerEvents="none"
@@ -66,7 +71,17 @@ const Navbar = () => {
             </InputGroup>
           </Flex>
 
-          <Flex>
+          <Flex gap="0.8rem">
+            <IconButton
+              onClick={toggleColorMode}
+              icon={colorMode === "light" ? <BiMoon /> : <BsSun />}
+              fontSize="1.6rem"
+              size="sm"
+              bg="transparent"
+              color="white"
+              _hover={{ bg: "transparent" }}
+              _active={{ bg: "transparent" }}
+            />
             <Menu>
               <MenuButton
                 as={IconButton}

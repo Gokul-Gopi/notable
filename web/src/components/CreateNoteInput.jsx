@@ -1,9 +1,15 @@
-import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
+import {
+  Input,
+  InputGroup,
+  InputRightElement,
+  useColorMode,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
 import { BsPen } from "react-icons/bs";
 import EditNote from "./EditNote";
 
 const CreateNoteInput = () => {
+  const { colorMode } = useColorMode();
   const [expandContainer, setExpandContainer] = useState(false);
 
   if (expandContainer) {
@@ -18,6 +24,12 @@ const CreateNoteInput = () => {
       my="3rem"
       boxShadow="4px 2px 5px 0px rgba(0, 0, 0, 0.08)"
       onClick={() => setExpandContainer(true)}
+      _hover={
+        colorMode === "dark" && {
+          boxShadow: "4px 2px 5px 0px rgba(0, 96, 96, 1)",
+        }
+      }
+      borderRadius="1rem"
     >
       <Input placeholder="Take a note.." size="lg" borderRadius="10" />
       <InputRightElement

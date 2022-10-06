@@ -1,4 +1,12 @@
-import { Button, Flex, Input, Textarea, useToast } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Input,
+  Textarea,
+  useColorMode,
+  useColorModeValue,
+  useToast,
+} from "@chakra-ui/react";
 import React from "react";
 import BGColorSelect from "./BGColorSelect";
 import LabelSelect from "./LabelSelect";
@@ -18,17 +26,14 @@ import {
 import "../index.css";
 import { getLabels } from "../services/label";
 import { queryClient } from "../utils/queryClient";
-import { errorMessage } from "../utils/helpers";
+import { defaultFieldValues, errorMessage } from "../utils/helpers";
 
 export const ViewNote = ({ noteId, isOpen, onClose }) => {
   const toast = useToast();
-  const defaultFieldValues = {
-    title: undefined,
-    note: "",
-    labelId: undefined,
-    background: "#feffdf",
-  };
+  const { colorMode } = useColorMode();
   const [noteDetails, setNoteDetails] = useState(defaultFieldValues);
+  const bg = useColorModeValue(noteDetails?.background, "#131821");
+
   const { data: notes } = useQuery(GET_USER_NOTES, getUsetNotes, {
     select: (response) => response?.data?.data,
   });
@@ -82,9 +87,10 @@ export const ViewNote = ({ noteId, isOpen, onClose }) => {
       <ModalOverlay />
       <ModalContent
         p="0"
-        bg={noteDetails?.background}
+        bg={bg}
         height="40vh"
         width={{ base: "90%", md: "100%" }}
+        border={colorMode === "dark" ? "1px" : "none"}
       >
         <ModalBody
           display="flex"
