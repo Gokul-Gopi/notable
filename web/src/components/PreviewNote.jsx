@@ -109,27 +109,13 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
         </Text>
 
         <Flex align="center">
-          {noteDetails?.pinned ? (
+          {noteDetails?.pinned && (
             <Icon
-              onClick={(e) => {
-                e.stopPropagation();
-                pinUnpinHandler();
-              }}
               as={AiFillPushpin}
               w={{ base: "5", md: "6" }}
               h={{ base: "5", md: "6" }}
               color="#979797"
-            />
-          ) : (
-            <Icon
-              onClick={(e) => {
-                e.stopPropagation();
-                pinUnpinHandler();
-              }}
-              as={AiOutlinePushpin}
-              w={{ base: "5", md: "6" }}
-              h={{ base: "5", md: "6" }}
-              color="#979797"
+              cursor="initial"
             />
           )}
 
@@ -171,7 +157,7 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
                   background: "transparent",
                 }}
               >
-                Pin
+                {noteDetails?.pinned ? "Unpin" : "Pin"}
               </MenuItem>
               <MenuItem
                 onClick={(e) => {

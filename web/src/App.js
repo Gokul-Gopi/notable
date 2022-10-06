@@ -6,6 +6,7 @@ import {
   Image,
   useDisclosure,
   Skeleton,
+  Text,
 } from "@chakra-ui/react";
 import CreateNoteInput from "./components/CreateNoteInput";
 import Navbar from "./components/Navbar";
@@ -93,6 +94,14 @@ function App() {
                 src={noNotes}
                 alt="no notes"
               />
+              <Text
+                mt="3rem"
+                color="teal.300"
+                fontSize="1.4rem"
+                fontWeight="500"
+              >
+                Wow such empty..
+              </Text>
             </Flex>
           ) : (
             <Grid
