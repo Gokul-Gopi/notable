@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import { theme } from "./utils/theme";
 import { QueryClientProvider } from "react-query";
 import { queryClient } from "./utils/queryClient";
@@ -15,6 +15,7 @@ root.render(
     <ChakraProvider theme={theme}>
       <AuthProvider>
         <React.StrictMode>
+          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <App />
         </React.StrictMode>
       </AuthProvider>

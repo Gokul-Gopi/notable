@@ -8,6 +8,8 @@ import {
   MenuItem,
   MenuList,
   Text,
+  useColorMode,
+  useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
 import {
@@ -25,6 +27,8 @@ import { GET_USER_NOTES } from "../utils/react-query-keys";
 
 const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
   const toast = useToast();
+  const bg = useColorModeValue(noteDetails?.background, "");
+  const { colorMode } = useColorMode();
 
   const { mutate, isLoading: isDeleting } = useMutation(delteNote);
   const deleteNoteHandler = () => {
@@ -74,18 +78,31 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
       }}
       opacity={isDeleting ? 0.5 : 1}
       pos="relative"
-      boxShadow={{ base: "none", md: "8px 6px 15px 2px rgba(0, 0, 0, 0.08)" }}
+      boxShadow={{
+        base: "none",
+        md:
+          colorMode === "light"
+            ? "8px 6px 15px 2px rgba(0, 0, 0, 0.08)"
+            : "8px 6px 15px 2px rgba(0, 0, 0, 0.4)",
+      }}
       direction="column"
-      bg={noteDetails?.background}
+      bg={bg}
       borderRadius="10"
       cursor="pointer"
       transition="all 0.2s"
       _hover={{
-        boxShadow: { base: "", md: "8px 6px 15px 2px rgba(0, 0, 0, 0.15)" },
+        boxShadow: {
+          base: "",
+          md:
+            colorMode === "light"
+              ? "8px 6px 15px 2px rgba(0, 0, 0, 0.15)"
+              : "4px 2px 15px 0px rgba(0, 96, 96, 1)",
+        },
       }}
       height={{ base: "12rem", md: "15rem" }}
       width="100%"
       maxW="20.5rem"
+      border={colorMode === "dark" && { base: "1px", md: "none" }}
     >
       <Flex
         justify="space-between"

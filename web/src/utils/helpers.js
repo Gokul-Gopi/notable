@@ -37,3 +37,10 @@ export const randomBGColorSelect = () => {
   const randomIndex = Math.floor(Math.random() * numberOfAvailableColors) || 0;
   return availableColorOptions[randomIndex];
 };
+
+export const defaultFieldValues = {
+  title: undefined,
+  note: "",
+  labelId: undefined,
+  background: "#feffdf",
+};
