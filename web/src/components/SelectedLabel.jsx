@@ -4,9 +4,9 @@ import React from "react";
 const SelectedLabel = ({ label }) => {
   return (
     <Box
-      width={{ base: "6rem", md: "10rem" }}
+      minW={{ base: "auto", md: "12rem" }}
       textAlign="left"
-      fontSize={{ base: "0.7rem", md: "0.9rem" }}
+      fontSize="0.9rem"
       py="0.2rem"
       px="0.6rem"
       borderRadius="5"
