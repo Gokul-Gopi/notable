@@ -7,8 +7,13 @@ import { Note } from "../models/note.model.js";
 
 export const getUserNotes = async (req, res) => {
   const user = req.user;
+  const searchInput = req.query?.search || "";
+
   try {
-    const userNotes = await Note.find({ userId: user?._id }).sort({
+    const userNotes = await Note.find({
+      userId: user?._id,
+      title: { $regex: new RegExp(searchInput) },
+    }).sort({
       pinned: "desc",
       createdAt: "desc",
     });
