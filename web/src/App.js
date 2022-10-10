@@ -1,19 +1,8 @@
-import {
-  Box,
-  Grid,
-  Flex,
-  Button,
-  Image,
-  useDisclosure,
-  Skeleton,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Grid, Flex, useDisclosure } from "@chakra-ui/react";
 import CreateNoteInput from "./components/CreateNoteInput";
 import Navbar from "./components/Navbar";
 import PreviewNote from "./components/PreviewNote";
 import "./index.css";
-import login from "./assets/login.svg";
-import { AiOutlineLogin } from "react-icons/ai";
 import CustomModal from "./components/CustomModal";
 import LoginForm from "./components/Forms/LoginForm";
 import SignUpForm from "./components/Forms/SignUpForm";
@@ -25,7 +14,9 @@ import { ViewNote } from "./components/ViewNote";
 import { useState } from "react";
 import CreateNoteFloatingButton from "./components/CreateNoteFloatingButton";
 import EditNote from "./components/EditNote";
-import noNotes from "./assets/no-notes.svg";
+import { NoNotesSVG } from "./components/NoNotesSVG";
+import { SkeletonLoading } from "./components/SkeletonLoading";
+import { NotLoggedInSVG } from "./components/NotLoggedInSVG";
 
 function App() {
   const { isUserLoggedIn } = useAuth();
@@ -65,45 +56,9 @@ function App() {
           <CreateNoteInput />
 
           {notes?.length < 1 ? (
-            <Flex
-              direction="column"
-              justify="center"
-              align="center"
-              height={{ base: "80vh", md: "auto" }}
-            >
-              <Image
-                boxSize={{ base: "14rem", md: "20rem" }}
-                src={noNotes}
-                alt="no notes"
-              />
-              <Text
-                mt="3rem"
-                color="teal.300"
-                fontSize="1.4rem"
-                fontWeight="500"
-              >
-                Wow such empty..
-              </Text>
-            </Flex>
+            <NoNotesSVG />
           ) : isLoading ? (
-            <Flex
-              direction="column"
-              gap="2rem"
-              height="50vh"
-              align="center"
-              justify="center"
-            >
-              {[1, 2].map((e) => {
-                return (
-                  <Skeleton
-                    key={e}
-                    width="80%"
-                    maxW="55rem"
-                    height={{ base: "4rem", md: "6rem" }}
-                  />
-                );
-              })}
-            </Flex>
+            <SkeletonLoading />
           ) : (
             <Grid
               templateColumns={{
@@ -138,7 +93,6 @@ function App() {
             />
           )}
 
-          <CreateNoteFloatingButton setCreateNewNote={setCreateNewNote} />
           {createNewNote && (
             <Flex
               onClick={() => setCreateNewNote(false)}
@@ -155,6 +109,8 @@ function App() {
               <EditNote openBlankNote={setCreateNewNote} />
             </Flex>
           )}
+
+          <CreateNoteFloatingButton setCreateNewNote={setCreateNewNote} />
         </>
       ) : (
         <Flex
@@ -163,23 +119,7 @@ function App() {
           justifyContent="center"
           height="80vh"
         >
-          <Box>
-            <Image
-              boxSize={{ base: "15rem", md: "25rem" }}
-              src={login}
-              alt="login"
-            />
-          </Box>
-          <Button
-            onClick={openLoginFrom}
-            bg="brand.primary"
-            color="white"
-            fontWeight="500"
-            _hover={{ transform: "scale(1.1)" }}
-            leftIcon={<AiOutlineLogin />}
-          >
-            Login
-          </Button>
+          <NotLoggedInSVG openLoginFrom={openLoginFrom} />
 
           <CustomModal
             title="Welcome back"
