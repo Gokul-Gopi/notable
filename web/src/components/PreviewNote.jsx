@@ -24,6 +24,9 @@ import { delteNote, pinNote } from "../services/note";
 import { errorMessage } from "../utils/helpers";
 import { queryClient } from "../utils/queryClient";
 import { GET_USER_NOTES } from "../utils/react-query-keys";
+import dayjs from "dayjs";
+import LocalizedFormat from "dayjs/plugin/localizedFormat";
+dayjs.extend(LocalizedFormat);
 
 const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
   const toast = useToast();
@@ -208,18 +211,33 @@ const PreviewNote = ({ noteDetails, openNote, setIdOfNoteOnView }) => {
       >
         {noteDetails?.note}
       </Text>
-      {noteDetails?.label?.background && (
-        <Box
-          display="inline-block"
-          height={{ base: "0.4rem", md: "0.55rem" }}
-          width={{ base: "3rem", md: "5rem" }}
-          borderRadius="10"
-          bg={noteDetails?.label?.background}
-          bottom="4%"
-          right="4%"
-          pos="absolute"
-        ></Box>
-      )}
+
+      <Flex
+        color="#979797"
+        pr={{ base: "0.6rem", md: "1rem" }}
+        pl={{ base: "0.8rem", md: "1.3rem" }}
+        justify="space-between"
+        align="center"
+        mt="auto"
+        mb="0.4rem"
+        fontSize={{ base: "0.85rem", md: "1rem" }}
+      >
+        <Text display="inline-block">
+          {dayjs(noteDetails?.createdAt).format("ll")}
+        </Text>
+        {noteDetails?.label?.background && (
+          <Box
+            display="inline-block"
+            height={{ base: "0.4rem", md: "0.55rem" }}
+            width={{ base: "3rem", md: "5rem" }}
+            borderRadius="10"
+            bg={noteDetails?.label?.background}
+            // bottom="4%"
+            // right="4%"
+            // pos="absolute"
+          ></Box>
+        )}
+      </Flex>
     </Flex>
   );
 };

@@ -2,6 +2,7 @@ import {
   Button,
   Flex,
   Input,
+  Text,
   Textarea,
   useColorMode,
   useColorModeValue,
@@ -27,6 +28,7 @@ import "../index.css";
 import { getLabels } from "../services/label";
 import { queryClient } from "../utils/queryClient";
 import { defaultFieldValues, errorMessage } from "../utils/helpers";
+import dayjs from "dayjs";
 
 export const ViewNote = ({ noteId, isOpen, onClose }) => {
   const toast = useToast();
@@ -50,6 +52,7 @@ export const ViewNote = ({ noteId, isOpen, onClose }) => {
         note: note?.note,
         background: note?.background,
         labelId: note?.label?._id,
+        date: note?.createdAt,
       };
 
       setNoteDetails(detail);
@@ -58,6 +61,7 @@ export const ViewNote = ({ noteId, isOpen, onClose }) => {
 
   const { mutate, isLoading } = useMutation(updateNote);
   const updateNoteHandler = () => {
+    delete noteDetails?.createdAt;
     mutate(
       { ...noteDetails, id: noteId },
       {
@@ -134,6 +138,15 @@ export const ViewNote = ({ noteId, isOpen, onClose }) => {
             outline="none"
             resize="none"
           ></Textarea>
+          <Text
+            ml={{ base: "1rem", md: "0.6rem" }}
+            mt="0.6rem"
+            color="#979797"
+            fontWeight="500"
+            fontSize={{ base: "0.95rem", md: "1rem" }}
+          >
+            {dayjs(noteDetails?.date).format("lll")}
+          </Text>
         </ModalBody>
 
         <ModalFooter
@@ -141,7 +154,8 @@ export const ViewNote = ({ noteId, isOpen, onClose }) => {
           alignItems="center"
           justifyContent="space-between"
           px={{ base: "0.7rem", md: "1rem" }}
-          py={{ base: "2", md: "4" }}
+          pb={{ base: "2", md: "4" }}
+          pt={{ base: "2", md: "1" }}
         >
           <Flex align="center">
             <BGColorSelect
