@@ -26,3 +26,12 @@ export const changePasswordApi = async (data) => {
     throw error;
   }
 };
+
+export const submitFeedback = async (data) => {
+  try {
+    const response = await invokeAxios("/user/feedback", data, "POST");
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
