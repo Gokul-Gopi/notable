@@ -24,11 +24,19 @@ import "../index.css";
 import { debounce } from "../utils/helpers";
 import { queryClient } from "../utils/queryClient";
 import { GET_USER_NOTES } from "../utils/react-query-keys";
+import { AiOutlineSound } from "react-icons/ai";
+import { FeedbackForm } from "./Forms/FeedbackForm";
 
 const Navbar = ({ searchInput, setSearchInput }) => {
   const { logoutUser, isUserLoggedIn } = useAuth();
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isFeedbackFormOpen,
+    onOpen: openFeedbackForm,
+    onClose: closeFeedbackForm,
+  } = useDisclosure();
 
   const searchNoteHandler = debounce((e) => {
     setSearchInput(e.target.value);
@@ -115,6 +123,15 @@ const Navbar = ({ searchInput, setSearchInput }) => {
                   Change password
                 </MenuItem>
                 <MenuItem
+                  onClick={openFeedbackForm}
+                  _hover={{ paddingLeft: "1rem" }}
+                  color="brand.primary"
+                  transition="all 0.3s"
+                  icon={<AiOutlineSound fontSize="1.1rem" />}
+                >
+                  Feedback
+                </MenuItem>
+                <MenuItem
                   onClick={logoutUser}
                   _hover={{ paddingLeft: "1rem" }}
                   color="brand.primary"
@@ -131,6 +148,13 @@ const Navbar = ({ searchInput, setSearchInput }) => {
               onClose={onClose}
             >
               <ChangePasswordForm onClose={onClose} />
+            </CustomModal>
+            <CustomModal
+              title="Feedback"
+              isOpen={isFeedbackFormOpen}
+              onClose={closeFeedbackForm}
+            >
+              <FeedbackForm onClose={closeFeedbackForm} />
             </CustomModal>
           </Flex>
         </>
