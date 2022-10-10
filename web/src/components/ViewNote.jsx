@@ -61,7 +61,7 @@ export const ViewNote = ({ noteId, isOpen, onClose }) => {
 
   const { mutate, isLoading } = useMutation(updateNote);
   const updateNoteHandler = () => {
-    delete noteDetails?.createdAt;
+    delete noteDetails?.date;
     mutate(
       { ...noteDetails, id: noteId },
       {
