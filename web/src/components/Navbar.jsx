@@ -21,11 +21,19 @@ import { useAuth } from "../context/AuthContext";
 import CustomModal from "./CustomModal";
 import ChangePasswordForm from "./Forms/ChangePasswordForm";
 import "../index.css";
+import { debounce } from "../utils/helpers";
+import { queryClient } from "../utils/queryClient";
+import { GET_USER_NOTES } from "../utils/react-query-keys";
 
-const Navbar = () => {
+const Navbar = ({ searchInput, setSearchInput }) => {
   const { logoutUser, isUserLoggedIn } = useAuth();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
+
+  const searchNoteHandler = debounce((e) => {
+    setSearchInput(e.target.value);
+    queryClient.invalidateQueries(GET_USER_NOTES);
+  }, 1000);
 
   return (
     <Flex
@@ -57,6 +65,7 @@ const Navbar = () => {
           >
             <InputGroup>
               <Input
+                onChange={(e) => searchNoteHandler(e)}
                 className="input-placeholder"
                 placeholder="Search by title.."
                 bg="white"

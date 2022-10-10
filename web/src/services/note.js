@@ -1,8 +1,11 @@
 import { invokeAxios } from "../utils/axios";
 
-export const getUsetNotes = async () => {
+export const getUsetNotes = async (searchInput) => {
+  const route =
+    typeof searchInput === "string" ? `note?search=${searchInput}` : `note`;
+
   try {
-    const response = await invokeAxios("/note");
+    const response = await invokeAxios(route);
     return response;
   } catch (error) {
     throw error;

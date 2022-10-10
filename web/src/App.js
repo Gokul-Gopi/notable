@@ -31,11 +31,18 @@ function App() {
   const { isUserLoggedIn } = useAuth();
   const [createNewNote, setCreateNewNote] = useState(false);
   const [idOfNoteOnView, setIdOfNoteOnView] = useState("");
+  const [searchInput, setSearchInput] = useState("");
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { data: notes, isLoading } = useQuery(GET_USER_NOTES, getUsetNotes, {
-    select: (response) => response?.data?.data,
-    retry: 1,
-  });
+  const { data: notes, isLoading } = useQuery(
+    [GET_USER_NOTES, searchInput],
+    () => getUsetNotes(searchInput),
+    {
+      select: (response) => response?.data?.data,
+      retry: 1,
+      enabled: isUserLoggedIn,
+    }
+  );
 
   const {
     isOpen: isLoginFormOpen,
@@ -49,34 +56,9 @@ function App() {
     onClose: closeSignupForm,
   } = useDisclosure();
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
-  if (isLoading) {
-    return (
-      <Flex
-        direction="column"
-        gap="2rem"
-        height="95vh"
-        align="center"
-        justify="center"
-      >
-        {[1, 2].map((e) => {
-          return (
-            <Skeleton
-              key={e}
-              width="80%"
-              maxW="55rem"
-              height={{ base: "4rem", md: "6rem" }}
-            />
-          );
-        })}
-      </Flex>
-    );
-  }
-
   return (
     <Box className="App">
-      <Navbar />
+      <Navbar searchInput={searchInput} setSearchInput={setSearchInput} />
 
       {isUserLoggedIn ? (
         <>
@@ -102,6 +84,25 @@ function App() {
               >
                 Wow such empty..
               </Text>
+            </Flex>
+          ) : isLoading ? (
+            <Flex
+              direction="column"
+              gap="2rem"
+              height="50vh"
+              align="center"
+              justify="center"
+            >
+              {[1, 2].map((e) => {
+                return (
+                  <Skeleton
+                    key={e}
+                    width="80%"
+                    maxW="55rem"
+                    height={{ base: "4rem", md: "6rem" }}
+                  />
+                );
+              })}
             </Flex>
           ) : (
             <Grid
@@ -129,7 +130,13 @@ function App() {
             </Grid>
           )}
 
-          <ViewNote noteId={idOfNoteOnView} onClose={onClose} isOpen={isOpen} />
+          {idOfNoteOnView && (
+            <ViewNote
+              noteId={idOfNoteOnView}
+              onClose={onClose}
+              isOpen={isOpen}
+            />
+          )}
 
           <CreateNoteFloatingButton setCreateNewNote={setCreateNewNote} />
           {createNewNote && (
