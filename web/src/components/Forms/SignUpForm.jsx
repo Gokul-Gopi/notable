@@ -82,7 +82,7 @@ const SignUpForm = ({ openLoginForm, onClose }) => {
           pattern: {
             value: passwordRegex,
             message:
-              "Min. 8 characters long, must include a number a special character",
+              "Min. 8 characters long, must include a number and a special character",
           },
         }}
       />

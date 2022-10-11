@@ -16,6 +16,6 @@ export const loginSchema = Joi.object({
 
 export const changePasswordSchema = Joi.object({
   oldPassword: Joi.string().required(),
-  confirmPassword: Joi.equal(Joi.ref("oldPassword")).required(),
   newPassword: Joi.string().pattern(passwordRegex).required(),
+  confirmPassword: Joi.equal(Joi.ref("newPassword")).required(),
 });

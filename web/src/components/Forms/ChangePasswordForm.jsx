@@ -4,6 +4,7 @@ import { Button, useToast } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { errorMessage, passwordRegex } from "../../utils/helpers";
+import { changePasswordApi } from "../../services/user";
 
 const ChangePasswordForm = ({ onClose }) => {
   const toast = useToast();
@@ -14,7 +15,7 @@ const ChangePasswordForm = ({ onClose }) => {
     formState: { errors },
   } = useForm();
 
-  const { mutate, isLoading } = useMutation();
+  const { mutate, isLoading } = useMutation(changePasswordApi);
   const changePassword = (data) => {
     mutate(data, {
       onSuccess: () => {
@@ -85,7 +86,7 @@ const ChangePasswordForm = ({ onClose }) => {
           },
           validate: {
             value: (value) =>
-              value !== watch("newPassword") && "Password doesn't match",
+              value !== watch("newPassword") ? "Password doesn't match" : null,
           },
         }}
       />

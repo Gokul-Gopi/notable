@@ -63,10 +63,9 @@ const LabelSelect = ({ labels, setNoteDetails }) => {
           onClick={onOpen}
           cursor="pointer"
           mt="0.5rem"
-          color="#979797"
           fontSize="0.9rem"
           pl="2rem"
-          _hover={{ color: "brand.primary" }}
+          color="brand.primary"
         >
           + Create custom
         </Text>

@@ -92,7 +92,6 @@ export const isAuthenticatedUser = async (req, res, next) => {
     req.user = user;
     return next();
   } catch (error) {
-    // console.log(error);
     const { status, message } = getErrorCodeAndMessage(error);
     return res.status(status).json({ status: false, message });
   }
@@ -109,7 +108,7 @@ export const changePassword = async (req, res) => {
     if (!isPasswordCorrect) {
       throw {
         status_code: 401,
-        message: "Incorrect password",
+        message: "Old password is incorrect",
       };
     }
 
