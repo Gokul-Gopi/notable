@@ -12,7 +12,14 @@ export const getUserNotes = async (req, res) => {
   try {
     const userNotes = await Note.find({
       userId: user?._id,
-      title: { $regex: new RegExp(searchInput) },
+      $or: [
+        {
+          title: {
+            $regex: new RegExp(searchInput),
+          },
+        },
+        { title: searchInput.length < 1 && undefined },
+      ],
     }).sort({
       pinned: "desc",
       createdAt: "desc",

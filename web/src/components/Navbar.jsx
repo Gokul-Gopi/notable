@@ -27,7 +27,7 @@ import { GET_USER_NOTES } from "../utils/react-query-keys";
 import { AiOutlineSound } from "react-icons/ai";
 import { FeedbackForm } from "./Forms/FeedbackForm";
 
-const Navbar = ({ searchInput, setSearchInput }) => {
+const Navbar = ({ setSearchInput }) => {
   const { logoutUser, isUserLoggedIn } = useAuth();
   const { colorMode, toggleColorMode } = useColorMode();
 
@@ -41,7 +41,7 @@ const Navbar = ({ searchInput, setSearchInput }) => {
   const searchNoteHandler = debounce((e) => {
     setSearchInput(e.target.value);
     queryClient.invalidateQueries(GET_USER_NOTES);
-  }, 1000);
+  }, 800);
 
   return (
     <Flex
