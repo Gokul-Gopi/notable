@@ -19,30 +19,31 @@ import { IoClose } from "react-icons/io5";
 import { useMutation } from "react-query";
 import { deleteLabelApi } from "../services/user";
 import { queryClient } from "../utils/queryClient";
-import { GET_USER_LABELS } from "../utils/react-query-keys";
+import { GET_USER_LABELS, GET_USER_NOTES } from "../utils/react-query-keys";
 import { errorMessage } from "../utils/helpers";
 
 const LabelSelect = ({ labels, setNoteDetails }) => {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { mutate } = useMutation(deleteLabelApi);
-  const deleteLabelHandler = (event, labelId) => {
-    event.stopPropagation();
-    mutate(labelId, {
-      onSuccess: () => {
-        queryClient.invalidateQueries(GET_USER_LABELS);
-      },
-      onError: (error) => {
-        toast({
-          description: errorMessage(error),
-          status: "error",
-          isClosable: true,
-          duration: 5000,
-        });
-      },
-    });
-  };
+  // const { mutate } = useMutation(deleteLabelApi);
+  // const deleteLabelHandler = (event, labelId) => {
+  //   event.stopPropagation();
+  //   mutate(labelId, {
+  //     onSuccess: () => {
+  //       queryClient.invalidateQueries(GET_USER_LABELS);
+  //       queryClient.invalidateQueries(GET_USER_NOTES);
+  //     },
+  //     onError: (error) => {
+  //       toast({
+  //         description: errorMessage(error),
+  //         status: "error",
+  //         isClosable: true,
+  //         duration: 5000,
+  //       });
+  //     },
+  //   });
+  // };
 
   return (
     <Menu closeOnSelect={false}>
@@ -82,10 +83,10 @@ const LabelSelect = ({ labels, setNoteDetails }) => {
                   width="90%"
                 >
                   <Text as="span"> {label?.name} </Text>
-                  <Icon
+                  {/* <Icon
                     as={IoClose}
                     onClick={(e) => deleteLabelHandler(e, label?._id)}
-                  />
+                  /> */}
                 </Text>
               </MenuItemOption>
             );
