@@ -1,4 +1,5 @@
 import {
+  Icon,
   IconButton,
   Menu,
   MenuButton,
@@ -7,15 +8,41 @@ import {
   MenuOptionGroup,
   Text,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import React from "react";
 import { BiLabel } from "react-icons/bi";
 import CustomModal from "./CustomModal";
 import { CreateLabel } from "./Forms/CreateLabel";
 import "../index.css";
+import { IoClose } from "react-icons/io5";
+import { useMutation } from "react-query";
+import { deleteLabelApi } from "../services/user";
+import { queryClient } from "../utils/queryClient";
+import { GET_USER_LABELS } from "../utils/react-query-keys";
+import { errorMessage } from "../utils/helpers";
 
 const LabelSelect = ({ labels, setNoteDetails }) => {
+  const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { mutate } = useMutation(deleteLabelApi);
+  const deleteLabelHandler = (event, labelId) => {
+    event.stopPropagation();
+    mutate(labelId, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(GET_USER_LABELS);
+      },
+      onError: (error) => {
+        toast({
+          description: errorMessage(error),
+          status: "error",
+          isClosable: true,
+          duration: 5000,
+        });
+      },
+    });
+  };
 
   return (
     <Menu closeOnSelect={false}>
@@ -43,8 +70,10 @@ const LabelSelect = ({ labels, setNoteDetails }) => {
                 value={label?._id}
               >
                 <Text
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
                   fontSize="0.8rem"
-                  // fontWeight="bold"
                   bg={label?.background}
                   color="white"
                   px="0.5rem"
@@ -52,7 +81,11 @@ const LabelSelect = ({ labels, setNoteDetails }) => {
                   borderRadius="5"
                   width="90%"
                 >
-                  {label?.name}
+                  <Text as="span"> {label?.name} </Text>
+                  <Icon
+                    as={IoClose}
+                    onClick={(e) => deleteLabelHandler(e, label?._id)}
+                  />
                 </Text>
               </MenuItemOption>
             );
@@ -67,14 +100,10 @@ const LabelSelect = ({ labels, setNoteDetails }) => {
           pl="2rem"
           color="brand.primary"
         >
-          + Create custom
+          + Create label
         </Text>
       </MenuList>
-      <CustomModal
-        title="Create custom label"
-        isOpen={isOpen}
-        onClose={onClose}
-      >
+      <CustomModal title="Create  label" isOpen={isOpen} onClose={onClose}>
         <CreateLabel onClose={onClose} />
       </CustomModal>
     </Menu>

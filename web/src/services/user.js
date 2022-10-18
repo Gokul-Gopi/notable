@@ -35,3 +35,12 @@ export const submitFeedback = async (data) => {
     throw error;
   }
 };
+
+export const deleteLabelApi = async (labelId) => {
+  try {
+    const response = await invokeAxios(`/user/label/${labelId}`, {}, "DELETE");
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
