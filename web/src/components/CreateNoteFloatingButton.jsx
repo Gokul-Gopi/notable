@@ -9,17 +9,17 @@ const CreateNoteFloatingButton = ({ setCreateNewNote }) => {
       display={{ base: "block", md: "none" }}
       as={IoAdd}
       position="fixed"
-      bottom="3%"
-      right="3%"
+      bottom="4%"
+      right="4%"
       cursor="pointer"
       fontSize="1rem"
       p="0.4rem"
-      borderRadius="2.5rem"
       bg="brand.primary"
       color="white"
       strokeWidth="2"
-      height="2.5rem"
-      width="2.5rem"
+      borderRadius="2.8rem"
+      height="2.8rem"
+      width="2.8rem"
       transition="all 0.2s"
       _hover={{ background: "brand.primary" }}
     />
