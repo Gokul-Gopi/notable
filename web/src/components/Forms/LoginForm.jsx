@@ -75,7 +75,7 @@ const LoginForm = ({ openSignupForm, onClose }) => {
         rules={{
           required: {
             value: true,
-            message: "New password requried",
+            message: "Password is requried",
           },
         }}
       />
